@@ -5,7 +5,7 @@ const app       = require('./app');
 sequelize.sync()
   .then(() => {
     console.log('BDD bien synchronisée');
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`API lancée sur http://localhost:${PORT}`);
       console.log(`  • Front  : ${FRONT_OFFICE_URL}`);
       console.log(`  • Back   : ${BACK_OFFICE_URL}`);

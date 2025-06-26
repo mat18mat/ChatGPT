@@ -593,7 +593,7 @@ window.cancelAnnouncement = async function(annonceId) {
 
 window.downloadInvoice = async function(annonceId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/factures/annonce/${annonceId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/factures/annonce/${annonceId}`, {
             method: 'GET',
             headers: {
                 'Authorization': localStorage.getItem('token') ? `Bearer ${localStorage.getItem('token')}` : ''
