@@ -32,6 +32,6 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
   },
-  FRONT_OFFICE_URL: process.env.FRONT_OFFICE_URL || "http://localhost:80",
+  FRONT_OFFICE_URL: process.env.FRONT_OFFICE_URL || "http://localhost:8082",
   BACK_OFFICE_URL: process.env.BACK_OFFICE_URL || "http://localhost:81"
 };

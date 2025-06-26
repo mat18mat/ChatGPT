@@ -6,7 +6,16 @@ const { sendMail } = require('../utils/mailer');
 
 const getAllAnnonces = async (req, res) => {
   try {
-    const annonces = await Annonce.findAll();
+    const annonces = await Annonce.findAll({
+      where: { Statut: 'publiee' },
+      include: [
+        {
+          model: Utilisateur,
+          as: 'createur',
+          attributes: ['Nom', 'Prenom']
+        }
+      ]
+    });
     res.status(200).json(annonces);
   } catch (error) {
     res.status(500).json({ error: 'Erreur lors de la récupération des annonces' });

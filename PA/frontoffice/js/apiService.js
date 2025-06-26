@@ -1,12 +1,19 @@
 const API_BASE_URL = "http://localhost:4000";
 
+function getHeaders() {
+  const headers = { "Content-Type": "application/json" };
+  const token = localStorage.getItem('token');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+}
+
 const ApiService = {
   get: async (endpoint) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getHeaders(),
     });
     if (!response.ok) {
       const message = await response.text();
@@ -18,9 +25,7 @@ const ApiService = {
   post: async (endpoint, data) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getHeaders(),
       body: JSON.stringify(data),
     });
     if (!response.ok) {
@@ -33,9 +38,7 @@ const ApiService = {
   put: async (endpoint, data) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getHeaders(),
       body: JSON.stringify(data),
     });
     if (!response.ok) {
@@ -48,9 +51,7 @@ const ApiService = {
   delete: async (endpoint) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getHeaders(),
     });
     if (!response.ok) {
       const message = await response.text();

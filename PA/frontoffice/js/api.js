@@ -1,5 +1,5 @@
 // Configuration de base de l'API
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'http://localhost:4000';
 
 // Classe pour gérer les appels API
 class ApiService {
@@ -99,7 +99,7 @@ class AuthService {
 
     static async login(email, password) {
         try {
-            const data = await ApiService.post('/utilisateurs/login', {
+            const data = await ApiService.post('/api/utilisateurs/login', {
                 email,
                 password
             });
@@ -117,10 +117,10 @@ class AuthService {
     static async register(userData) {
         try {
             // Créer l'utilisateur
-            const user = await ApiService.post('/utilisateurs', userData);
+            const user = await ApiService.post('/api/utilisateurs', userData);
             
             // Créer le rôle utilisateur
-            await ApiService.post('/roleUtilisateur', {
+            await ApiService.post('/api/roleUtilisateur', {
                 utilisateurId: user.id,
                 roleId: 1 // ID du rôle "client"
             });
