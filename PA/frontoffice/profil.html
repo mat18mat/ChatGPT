@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Profil</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .skeleton {
+      background: #f3f4f6;
+      border-radius: 0.75rem;
+      min-height: 2.5rem;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <!-- Feedback global -->
+  <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center gradient-text">Mon Profil</h2>
+    <form id="profil-form" class="space-y-4">
+      <div id="profil-skeleton">
+        <div class="skeleton mb-3"></div>
+        <div class="skeleton mb-3"></div>
+        <div class="skeleton mb-3"></div>
+        <div class="skeleton mb-3"></div>
+        <div class="skeleton mb-3"></div>
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Nom</label>
+        <input type="text" id="nom" class="w-full border rounded px-3 py-2" required>
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Prénom</label>
+        <input type="text" id="prenom" class="w-full border rounded px-3 py-2" required>
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Email</label>
+        <input type="email" id="mail" class="w-full border rounded px-3 py-2" required>
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Téléphone</label>
+        <input type="text" id="telephone" class="w-full border rounded px-3 py-2">
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Adresse</label>
+        <input type="text" id="adresse" class="w-full border rounded px-3 py-2">
+      </div>
+      <button type="button" id="toggle-password" class="w-full bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300">Changer le mot de passe</button>
+      <div id="password-field" class="hidden">
+        <label class="block mb-1 font-semibold mt-2">Nouveau mot de passe</label>
+        <input type="password" id="new-password" class="w-full border rounded px-3 py-2" autocomplete="new-password">
+      </div>
+      <button type="submit" class="w-full bg-primary text-white py-2 rounded-xl hover:bg-secondary transition font-medium">Enregistrer</button>
+      <div id="profil-message" class="text-center mt-2 text-green-600"></div>
+    </form>
+    <button id="logout-btn" class="w-full mt-6 bg-danger text-white py-2 rounded-xl hover:bg-danger/80 transition font-medium">Déconnexion</button>
+    <div class="mt-6 text-center">
+      <a href="dashboard.html" class="inline-block bg-primary text-white px-6 py-2 rounded-xl font-medium shadow hover:bg-secondary transition">Retour au dashboard</a>
+    </div>
+  </div>
+  <script src="js/profil.js"></script>
+</body>
+</html>

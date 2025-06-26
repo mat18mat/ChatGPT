@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDeli - Espace Client</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'bounce-gentle': 'bounceGentle 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes bounceGentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-lg"></i>
+                        </div>
+                        <span class="text-2xl font-bold gradient-text">EcoDeli</span>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group">
+                        Accueil
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="annonces.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group">
+                        Mes Annonces
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group">
+                        Dashboard
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="historique.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group">
+                        Historique
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="abonnements.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group">
+                        Abonnements
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="box-stockage.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group">
+                        Box Stockage
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notifications-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notifications-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full animate-pulse hidden" id="notification-dot"></span>
+                        </button>
+                        
+                        <!-- Dropdown notifications -->
+                        <div id="notifications-dropdown" class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 hidden z-50 animate-slide-up">
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="font-semibold text-gray-900">Notifications</h3>
+                            </div>
+                            <div id="notifications-list" class="max-h-96 overflow-y-auto">
+                                <!-- Notifications seront chargées ici -->
+                            </div>
+                            <div class="p-3 border-t border-gray-100">
+                                <button onclick="markAllAsRead()" class="text-sm text-primary hover:text-secondary">
+                                    Marquer tout comme lu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Panier -->
+                    <div class="relative">
+                        <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Profil -->
+                    <div class="relative">
+                        <a href="profil.html" id="profile-btn" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-primary/10 transition-all duration-300">
+                            <img src="/placeholder.svg?height=40&width=40&query=user+avatar" alt="Profil" class="h-10 w-10 rounded-full border-2 border-primary/20">
+                            <div class="hidden md:block text-left">
+                                <p class="font-medium text-gray-900">Client</p>
+                                <p class="text-xs text-gray-500">Premium</p>
+                            </div>
+                            <i class="fas fa-chevron-down text-sm text-gray-500"></i>
+                        </a>
+                        
+                        <!-- Menu déroulant profil -->
+                        <div id="profile-menu" class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 hidden z-50 animate-slide-up">
+                            <div class="p-2">
+                                <a href="profil.html" class="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">
+                                    <i class="fas fa-user text-primary"></i>
+                                    <span>Mon Profil</span>
+                                </a>
+                                <a href="box-stockage.html" class="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">
+                                    <i class="fas fa-box text-primary"></i>
+                                    <span>Mes Box de Stockage</span>
+                                </a>
+                                <a href="abonnements.html" class="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">
+                                    <i class="fas fa-crown text-primary"></i>
+                                    <span>Mon Abonnement</span>
+                                </a>
+                                <hr class="my-2">
+                                <button onclick="logout()" class="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-red-50 rounded-lg transition-colors w-full text-left">
+                                    <i class="fas fa-sign-out-alt text-red-500"></i>
+                                    <span>Déconnexion</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Menu mobile -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-700 hover:text-primary rounded-lg">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 hidden">
+            <div class="px-4 py-4 space-y-2">
+                <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">Accueil</a>
+                <a href="annonces.html" class="block py-3 px-4 text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">Mes Annonces</a>
+                <a href="dashboard.html" class="block py-3 px-4 text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">Dashboard</a>
+                <a href="historique.html" class="block py-3 px-4 text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">Historique</a>
+                <a href="abonnements.html" class="block py-3 px-4 text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">Abonnements</a>
+                <a href="box-stockage.html" class="block py-3 px-4 text-gray-700 hover:bg-primary/10 rounded-lg transition-colors">Box Stockage</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10"></div>
+        <div class="absolute inset-0">
+            <div class="absolute top-10 left-10 w-20 h-20 bg-primary/20 rounded-full animate-bounce-gentle"></div>
+            <div class="absolute top-32 right-20 w-16 h-16 bg-secondary/20 rounded-full animate-pulse-slow"></div>
+            <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-accent/20 rounded-full animate-bounce-gentle" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+                <span class="gradient-text">Bienvenue sur</span><br>
+                <span class="text-dark">EcoDeli</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto animate-fade-in" style="animation-delay: 0.2s;">
+                Votre plateforme tout-en-un pour les livraisons écologiques, services à la demande et stockage intelligent
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center animate-fade-in" style="animation-delay: 0.4s;">
+                <a href="annonces.html" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-2">
+                    <i class="fas fa-plus"></i>
+                    <span>Créer une annonce</span>
+                </a>
+                <a href="dashboard.html" class="bg-white text-primary px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 border-2 border-primary/20 flex items-center space-x-2">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Mon dashboard</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats rapides -->
+    <section class="py-16 relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-success to-emerald-400 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-truck text-white text-2xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <h3 class="text-3xl font-bold text-gray-800" id="total-deliveries">0</h3>
+                            <p class="text-gray-600 font-medium">Livraisons</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-success text-sm">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        <span>+12% ce mois</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-primary to-indigo-400 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-euro-sign text-white text-2xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <h3 class="text-3xl font-bold text-gray-800" id="total-spent">0€</h3>
+                            <p class="text-gray-600 font-medium">Dépensé</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-primary text-sm">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        <span>+8% ce mois</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-warning to-orange-400 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-star text-white text-2xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <h3 class="text-3xl font-bold text-gray-800" id="avg-rating">0</h3>
+                            <p class="text-gray-600 font-medium">Note moyenne</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-warning text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <span>Excellent service</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-accent to-cyan-400 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-2xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <h3 class="text-3xl font-bold text-gray-800" id="eco-points">0</h3>
+                            <p class="text-gray-600 font-medium">Points éco</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-accent text-sm">
+                        <i class="fas fa-leaf mr-1"></i>
+                        <span>Impact positif</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actions rapides -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Actions rapides</h2>
+                <p class="text-gray-600 text-lg">Tout ce dont vous avez besoin en un clic</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Créer une annonce -->
+                <div class="group bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full -translate-y-16 translate-x-16"></div>
+                    <div class="relative">
+                        <div class="bg-gradient-to-r from-primary to-secondary w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-plus-circle text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Créer une annonce</h3>
+                        <p class="text-gray-600 mb-6">Publiez une demande de livraison, service ou autre besoin</p>
+                        <a href="annonces.html" class="inline-flex items-center space-x-2 bg-primary text-white px-6 py-3 rounded-xl hover:bg-secondary transition-colors font-medium">
+                            <span>Commencer</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Trouver un prestataire -->
+                <div class="group bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-success/10 to-emerald-400/10 rounded-full -translate-y-16 translate-x-16"></div>
+                    <div class="relative">
+                        <div class="bg-gradient-to-r from-success to-emerald-400 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-search text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Trouver un prestataire</h3>
+                        <p class="text-gray-600 mb-6">Recherchez des professionnels disponibles près de chez vous</p>
+                        <button onclick="openProviderSearch()" class="inline-flex items-center space-x-2 bg-success text-white px-6 py-3 rounded-xl hover:bg-emerald-600 transition-colors font-medium">
+                            <span>Rechercher</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Louer un box -->
+                <div class="group bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg card-hover border border-white/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/10 to-cyan-400/10 rounded-full -translate-y-16 translate-x-16"></div>
+                    <div class="relative">
+                        <div class="bg-gradient-to-r from-accent to-cyan-400 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-box text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Louer un box</h3>
+                        <p class="text-gray-600 mb-6">Stockage sécurisé pour vos colis avec accès partageable</p>
+                        <a href="box-stockage.html" class="inline-flex items-center space-x-2 bg-accent text-white px-6 py-3 rounded-xl hover:bg-cyan-600 transition-colors font-medium">
+                            <span>Voir les box</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activité récente -->
+    <section class="py-16 bg-white/50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Activité récente</h2>
+                <a href="historique.html" class="text-primary hover:text-secondary font-medium flex items-center space-x-2">
+                    <span>Voir tout</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div id="recent-activity" class="space-y-4">
+                <!-- L'activité récente sera chargée ici -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-dark to-slate-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                            <i class="fas fa-leaf text-white"></i>
+                        </div>
+                        <span class="text-2xl font-bold">EcoDeli</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Votre plateforme de livraison écologique et responsable pour un avenir durable.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Services</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Livraison express</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Services à domicile</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Stockage sécurisé</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Commerce local</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Support</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Centre d'aide</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Communauté</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Légal</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">CGU</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Confidentialité</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-8 border-gray-700">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300">&copy; 2024 EcoDeli. Tous droits réservés.</p>
+                <p class="text-gray-400 text-sm mt-2 md:mt-0">Fait avec ❤️ pour un monde plus vert</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Panier Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl animate-slide-up">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">Mon Panier</h3>
+                    <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="cart-items" class="space-y-4 mb-6 max-h-96 overflow-y-auto">
+                    <!-- Items du panier seront ajoutés ici -->
+                </div>
+                <div class="border-t pt-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-lg font-semibold">Total:</span>
+                        <span id="cart-total" class="text-2xl font-bold text-primary">0€</span>
+                    </div>
+                    <button onclick="proceedToPayment()" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-medium">
+                        Procéder au paiement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>

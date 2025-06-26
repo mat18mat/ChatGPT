@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des logs | Backoffice EcoDeli</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../frontoffice/styles.css">
+  <style>
+    body { background: #f4f6fa; }
+    .main-container { display: flex; min-height: 100vh; }
+    #sidebar { width: 220px; background: #fff; border-right: 1px solid #e5e7eb; }
+    .content { flex: 1; padding: 2rem; }
+    .table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px #0001; }
+    .table th, .table td { padding: 0.75rem 1rem; border-bottom: 1px solid #f1f1f1; text-align: left; }
+    .table th { background: #f9fafb; font-weight: 600; }
+    .badge { display: inline-block; padding: 0.25em 0.75em; border-radius: 999px; font-size: 0.95em; font-weight: 500; }
+    .badge.info { background: #dbeafe; color: #2563eb; }
+    .badge.warn { background: #fef9c3; color: #b45309; }
+    .badge.error { background: #fee2e2; color: #b91c1c; }
+    .actions-btn { display: flex; gap: 0.5rem; }
+    .modal { position: fixed; inset: 0; background: #0005; display: flex; align-items: center; justify-content: center; z-index: 50; }
+    .modal-content { background: #fff; border-radius: 12px; padding: 2rem; min-width: 350px; max-width: 95vw; box-shadow: 0 2px 16px #0002; }
+    .modal-header { font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; }
+    .modal-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.5rem; color: #888; cursor: pointer; }
+    @media (max-width: 900px) { #sidebar { display: none; } .content { padding: 1rem; } }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div id="sidebar"></div>
+    <div class="content">
+      <header class="flex flex-col gap-6 mb-6">
+        <h1 class="text-2xl font-bold">Gestion des logs</h1>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="stats-cards-logs">
+          <div class="bg-blue-100 rounded-lg p-5 flex flex-col items-center shadow">
+            <div class="text-3xl font-bold text-blue-700" id="stat-logs-total">-</div>
+            <div class="text-blue-700 mt-2">Total</div>
+          </div>
+          <div class="bg-red-100 rounded-lg p-5 flex flex-col items-center shadow">
+            <div class="text-3xl font-bold text-red-700" id="stat-logs-erreurs">-</div>
+            <div class="text-red-700 mt-2">Erreurs</div>
+          </div>
+          <div class="bg-yellow-100 rounded-lg p-5 flex flex-col items-center shadow">
+            <div class="text-3xl font-bold text-yellow-700" id="stat-logs-warn">-</div>
+            <div class="text-yellow-700 mt-2">Avertissements</div>
+          </div>
+          <div class="bg-green-100 rounded-lg p-5 flex flex-col items-center shadow">
+            <div class="text-3xl font-bold text-green-700" id="stat-logs-info">-</div>
+            <div class="text-green-700 mt-2">Infos</div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Date</th><th>Type</th><th>Utilisateur</th><th>Message</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="logs-list">
+            <!-- Skeletons ou logs dynamiques ici -->
+          </tbody>
+        </table>
+      </main>
+    </div>
+  </div>
+  <!-- Modal détails log -->
+  <div id="log-modal" class="modal" style="display:none;">
+    <div class="modal-content relative">
+      <span class="modal-close" id="close-log-modal">&times;</span>
+      <div id="log-modal-body"></div>
+    </div>
+  </div>
+  <script src="sidebar.js"></script>
+  <script src="logs.js"></script>
+</body>
+</html>

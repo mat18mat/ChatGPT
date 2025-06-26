@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion Backoffice | EcoDeli</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../frontoffice/styles.css">
+  <style>
+    body { background: #f4f6fa; }
+    .login-container { max-width: 400px; margin: 7vh auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 16px #0001; padding: 2.5rem 2rem; }
+    .logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: bold; color: #2563eb; margin-bottom: 2rem; }
+    .input { width: 100%; padding: 0.75rem 1rem; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 1rem; font-size: 1rem; }
+    .btn { width: 100%; background: #2563eb; color: #fff; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #1d4ed8; }
+    .error { color: #dc2626; margin-bottom: 1rem; text-align: center; }
+    .forgot { display: block; text-align: right; color: #2563eb; font-size: 0.95rem; margin-bottom: 1rem; text-decoration: none; }
+    .forgot:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo"><i class="fas fa-leaf"></i> EcoDeli Backoffice</div>
+    <form id="login-form">
+      <input type="email" id="email" class="input" placeholder="Email admin" required autofocus />
+      <input type="password" id="password" class="input" placeholder="Mot de passe" required />
+      <a href="#" id="forgot-link" class="forgot">Mot de passe oublié ?</a>
+      <div id="error-msg" class="error" style="display:none;"></div>
+      <button type="submit" class="btn">Se connecter</button>
+    </form>
+    <form id="twofa-form" style="display:none; margin-top:2rem;">
+      <input type="text" id="twofa-code" class="input" placeholder="Code de vérification reçu par mail" maxlength="6" required />
+      <div id="twofa-error" class="error" style="display:none;"></div>
+      <button type="submit" class="btn">Valider le code</button>
+    </form>
+  </div>
+  <script src="login.js"></script>
+</body>
+</html> 

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - EcoDeli</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="../index.html" class="text-2xl font-bold text-indigo-600">EcoDeli</a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="../index.html#services" class="text-gray-800 hover:text-indigo-600 transition duration-300">Services</a>
+                <a href="../index.html#about" class="text-gray-800 hover:text-indigo-600 transition duration-300">À propos</a>
+                <a href="../index.html#contact" class="text-gray-800 hover:text-indigo-600 transition duration-300">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="login.html" class="text-gray-800 hover:text-indigo-600 transition duration-300">Connexion</a>
+                <a href="register.html" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Inscription</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-800">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="../index.html#services" class="text-gray-800 hover:text-indigo-600 transition duration-300">Services</a>
+                <a href="../index.html#about" class="text-gray-800 hover:text-indigo-600 transition duration-300">À propos</a>
+                <a href="../index.html#contact" class="text-gray-800 hover:text-indigo-600 transition duration-300">Contact</a>
+                <div class="flex flex-col space-y-2">
+                    <a href="login.html" class="text-gray-800 hover:text-indigo-600 transition duration-300">Connexion</a>
+                    <a href="register.html" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300 text-center">Inscription</a>
+                </div>
+            </div>
+        </div>
+    
+      <!-- Section Inscription -->
+      <section class="py-16">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-indigo-600 py-4 px-6">
+              <h2 class="text-2xl font-bold text-white">Inscription</h2>
+            </div>
+            <div class="py-8 px-6">
+    
+              <div id="register-error" class="hidden bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+              <div id="register-success" class="hidden bg-green-100 border-green-400 text-green-700 px-4 py-3 rounded mb-4"></div>
+    
+              <form id="register-form" class="space-y-6">
+    
+                <!-- Etapes -->
+                <div class="flex items-center justify-between mb-8">
+                  <div class="flex items-center">
+                    <div id="step-1-indicator" class="step-indicator active">1</div>
+                    <span class="ml-2">Informations personnelles</span>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="flex items-center">
+                    <div id="step-2-indicator" class="step-indicator">2</div>
+                    <span class="ml-2">Choix du rôle</span>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="flex items-center">
+                    <div id="step-3-indicator" class="step-indicator">3</div>
+                    <span class="ml-2">Documents</span>
+                  </div>
+                </div>
+    
+                <!-- Étape 1 -->
+                <div id="step-1" class="step-pane active space-y-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label for="nom" class="block font-medium mb-2">Nom <span class="text-red-500">*</span></label>
+                      <input type="text" id="nom" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-nom"></div>
+                    </div>
+                    <div>
+                      <label for="prenom" class="block font-medium mb-2">Prénom <span class="text-red-500">*</span></label>
+                      <input type="text" id="prenom" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-prenom"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label for="email" class="block font-medium mb-2">Email <span class="text-red-500">*</span></label>
+                      <input type="email" id="email" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-email"></div>
+                    </div>
+                    <div>
+                      <label for="telephone" class="block font-medium mb-2">Téléphone <span class="text-red-500">*</span></label>
+                      <input type="tel" id="telephone" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-telephone"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label for="password" class="block font-medium mb-2">Mot de passe <span class="text-red-500">*</span></label>
+                      <input type="password" id="password" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-password"></div>
+                    </div>
+                    <div>
+                      <label for="confirm-password" class="block font-medium mb-2">Confirmer mot de passe <span class="text-red-500">*</span></label>
+                      <input type="password" id="confirm-password" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-confirm-password"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="adresse" class="block font-medium mb-2">Adresse <span class="text-red-500">*</span></label>
+                    <input type="text" id="adresse" required class="form-control">
+                    <div class="error-message text-red-500 text-sm mt-1" id="error-adresse"></div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <label for="code-postal" class="block font-medium mb-2">Code postal <span class="text-red-500">*</span></label>
+                      <input type="text" id="code-postal" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-code-postal"></div>
+                    </div>
+                    <div>
+                      <label for="ville" class="block font-medium mb-2">Ville <span class="text-red-500">*</span></label>
+                      <input type="text" id="ville" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-ville"></div>
+                    </div>
+                    <div>
+                      <label for="pays" class="block font-medium mb-2">Pays <span class="text-red-500">*</span></label>
+                      <input type="text" id="pays" required class="form-control">
+                      <div class="error-message text-red-500 text-sm mt-1" id="error-pays"></div>
+                    </div>
+                  </div>
+                  <div class="flex justify-end">
+                    <button type="button" id="next-step-1" class="btn-primary">Suivant</button>
+                  </div>
+                </div>
+    
+                <!-- Étape 2 -->
+                <div id="step-2" class="step-pane hidden space-y-6">
+                  <p class="font-medium">Sélectionnez vos rôles :</p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- cases de rôles statiques (mais en dynamique pour la soumission) -->
+                    <label class="role-card">
+                      <input type="checkbox" name="roles" value="client">
+                      <div>
+                        <h3>Client</h3>
+                        <p>Réservez des services et suivez vos commandes.</p>
+                      </div>
+                    </label>
+                    <label class="role-card">
+                      <input type="checkbox" name="roles" value="livreur">
+                      <div>
+                        <h3>Livreur</h3>
+                        <p>Transportez des colis et gagnez de l'argent.</p>
+                      </div>
+                    </label>
+                    <label class="role-card">
+                      <input type="checkbox" name="roles" value="commercant">
+                      <div>
+                        <h3>Commerçant</h3>
+                        <p>Vendez vos produits avec livraison intégrée.</p>
+                      </div>
+                    </label>
+                    <label class="role-card">
+                      <input type="checkbox" name="roles" value="prestataire">
+                      <div>
+                        <h3>Prestataire</h3>
+                        <p>Offrez des services à la personne.</p>
+                      </div>
+                    </label>
+                  </div>
+                  <!-- champs spécifiques selon rôle -->
+                  <div id="livreur-fields" class="hidden space-y-4">
+                    <label for="vehicule">Type de véhicule</label>
+                    <select id="vehicule" class="form-control">
+                      <option value="">Sélectionnez</option>
+                      <option value="velo">Vélo</option>
+                      <option value="scooter">Scooter</option>
+                      <option value="voiture">Voiture</option>
+                    </select>
+                    <label for="zones-travail">Zones de travail (Ctrl+clic multiple)</label>
+                    <select id="zones-travail" multiple class="form-control">
+                      <option value="paris">Paris</option>
+                      <option value="lyon">Lyon</option>
+                      <option value="marseille">Marseille</option>
+                    </select>
+                  </div>
+                  <div class="flex justify-between">
+                    <button type="button" id="prev-step-2" class="btn-secondary">Précédent</button>
+                    <button type="button" id="next-step-2" class="btn-primary">Suivant</button>
+                  </div>
+                </div>
+    
+                <!-- Étape 3 -->
+                <div id="step-3" class="step-pane hidden space-y-6">
+                  <p class="font-medium">Téléchargez vos documents :</p>
+                  <label>
+                    Pièce d'identité
+                    <input type="file" id="piece-identite" accept=".jpg,.png,.pdf" class="form-control">
+                  </label>
+                  <label>
+                    Justificatif de domicile
+                    <input type="file" id="justificatif-domicile" accept=".jpg,.png,.pdf" class="form-control">
+                  </label>
+                  <div class="mt-4">
+                    <input type="checkbox" id="terms">
+                    <label for="terms">J'accepte les conditions et la politique de confidentialité</label>
+                  </div>
+                  <div class="flex justify-between">
+                    <button type="button" id="prev-step-3" class="btn-secondary">Précédent</button>
+                    <button type="submit" class="btn-primary">S'inscrire</button>
+                  </div>
+                </div>
+    
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <script>window.API_BASE = '/api';</script>
+      <script type="module" src="../js/api.js"></script>
+      <script type="module" src="../js/auth.js"></script>
+      <script type="module" src="../js/main.js"></script>
+      <script type="module" src="../js/register.js"></script>
+      <script>
+      // Gestion du formulaire d'inscription dynamique
+      const registerForm = document.getElementById('register-form');
+      const registerError = document.getElementById('register-error');
+      const registerSuccess = document.getElementById('register-success');
+
+      registerForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        registerError.classList.add('hidden');
+        registerSuccess.classList.add('hidden');
+
+        // Récupération des champs principaux
+        const nom = document.getElementById('nom').value;
+        const prenom = document.getElementById('prenom').value;
+        const mail = document.getElementById('email').value;
+        const telephone = document.getElementById('telephone').value;
+        const mdp = document.getElementById('password').value;
+        const adresse = document.getElementById('adresse').value;
+        // Rôles (checkbox)
+        const roles = Array.from(document.querySelectorAll('input[name="roles"]:checked')).map(cb => cb.value);
+
+        // Construction du body (adapter selon l'API)
+        const body = {
+          Nom: nom,
+          Prenom: prenom,
+          Mail: mail,
+          Telephone: telephone,
+          Mdp: mdp,
+          Adresse: adresse,
+          Roles: roles
+        };
+
+        try {
+          const res = await fetch('/api/utilisateur/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          const data = await res.json();
+          if (res.ok) {
+            registerSuccess.textContent = 'Inscription réussie ! Vous pouvez vous connecter.';
+            registerSuccess.classList.remove('hidden');
+            registerForm.reset();
+          } else {
+            registerError.textContent = data.message || (data.errors ? data.errors.join(', ') : 'Erreur lors de l\'inscription.');
+            registerError.classList.remove('hidden');
+          }
+        } catch (err) {
+          registerError.textContent = 'Erreur réseau ou serveur.';
+          registerError.classList.remove('hidden');
+        }
+      });
+      </script>
+    </body>
+    </html>
+    

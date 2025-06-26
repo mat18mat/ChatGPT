@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "nodemailer": "^7.0.3",
+    "stripe": "^18.2.1"
+  }
+}

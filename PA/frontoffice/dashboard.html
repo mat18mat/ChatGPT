@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EcoDeli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .badge-status {
+            display: inline-block;
+            padding: 0.25em 0.75em;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #16a34a; }
+        .badge-warning { background: #fef9c3; color: #ca8a04; }
+        .badge-danger { background: #fee2e2; color: #dc2626; }
+        .badge-info { background: #e0f2fe; color: #2563eb; }
+        .badge-default { background: #f3f4f6; color: #6b7280; }
+        @media (max-width: 640px) {
+            th, td { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-sans">
+    <!-- Feedback global -->
+    <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="hidden md:block w-64 bg-white/90 border-r border-gray-100 py-8 px-4">
+            <div id="sidebar"></div>
+        </aside>
+        <!-- Main content -->
+        <main class="flex-1">
+            <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-lg"></i>
+                        </div>
+                        <span class="text-2xl font-bold gradient-text">EcoDeli</span>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Accueil</a>
+                            <div x-data="{ role: '' }" x-init="role = new URLSearchParams(window.location.search).get('role') || 'client'">
+                                <template x-if="role === 'client'">
+                    <a href="annonces.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Mes Annonces</a>
+                                </template>
+                                <template x-if="role === 'prestataire'">
+                                    <a href="services.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Mes Services</a>
+                                </template>
+                                <template x-if="role === 'commercant'">
+                                    <a href="produits.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Mes Produits</a>
+                                </template>
+                                <template x-if="role === 'livreur'">
+                                    <a href="livraisons.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Mes Livraisons</a>
+                                </template>
+                            </div>
+                    <a href="#" class="text-primary font-semibold border-b-2 border-primary">Dashboard</a>
+                            <a href="conversations.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Messagerie</a>
+                    <a href="historique.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Historique</a>
+                    <a href="abonnements.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Abonnements</a>
+                    <a href="box-stockage.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Box Stockage</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notifications-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notifications-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                                <!-- Panneau notifications -->
+                                <div id="notifications-panel" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-xl shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+                                    <div class="flex items-center justify-between px-4 py-3 border-b">
+                                        <span class="font-semibold text-gray-900">Notifications</span>
+                                        <button id="mark-all-read" class="text-xs text-primary hover:underline">Tout marquer comme lu</button>
+                                    </div>
+                                    <div id="notifications-list" class="divide-y divide-gray-100">
+                                        <!-- Les notifications seront injectées ici -->
+                                    </div>
+                                    <div id="notifications-empty" class="text-center text-gray-500 py-6 hidden">Aucune notification</div>
+                                </div>
+                    </div>
+                    
+                    <!-- Profil -->
+                    <div class="relative">
+                        <a href="profil.html" id="profile-btn" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-primary/10 transition-all duration-300">
+                            <img src="/placeholder.svg?height=40&width=40&query=user+avatar" alt="Profil" class="h-10 w-10 rounded-full border-2 border-primary/20">
+                            <div class="hidden md:block text-left">
+                                        <p class="font-medium text-gray-900" id="user-role">Client</p>
+                                        <p class="text-xs text-gray-500" id="user-status">Premium</p>
+                            </div>
+                            <i class="fas fa-chevron-down text-sm text-gray-500"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Dashboard -->
+    <div class="bg-gradient-to-r from-primary/10 to-secondary/10 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                            <h1 class="text-4xl font-bold text-gray-900 mb-2" id="dashboard-title">Dashboard</h1>
+                    <p class="text-gray-600 text-lg">Vue d'ensemble de votre activité EcoDeli</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex space-x-4">
+                    <select id="period-selector" class="border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        <option value="7">7 derniers jours</option>
+                        <option value="30" selected>30 derniers jours</option>
+                        <option value="90">3 derniers mois</option>
+                        <option value="365">Cette année</option>
+                    </select>
+                    <button onclick="exportData()" class="bg-white text-primary px-6 py-2 rounded-xl border border-primary hover:bg-primary hover:text-white transition-colors">
+                        <i class="fas fa-download mr-2"></i>
+                        Exporter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Statistiques principales -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="stats-container">
+                    <!-- Skeleton de chargement -->
+                    <div class="col-span-full" id="stats-skeleton">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-white/80 p-6 rounded-2xl animate-pulse h-32"></div>
+                            <div class="bg-white/80 p-6 rounded-2xl animate-pulse h-32"></div>
+                            <div class="bg-white/80 p-6 rounded-2xl animate-pulse h-32"></div>
+                            <div class="bg-white/80 p-6 rounded-2xl animate-pulse h-32"></div>
+                        </div>
+                    </div>
+                    <!-- Les statistiques seront chargées dynamiquement ici -->
+            </div>
+
+                <!-- Graphiques -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8" id="charts-container">
+                    <!-- Skeleton de chargement -->
+                    <div class="col-span-full" id="charts-skeleton">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-white/80 p-8 rounded-2xl animate-pulse h-64"></div>
+                            <div class="bg-white/80 p-8 rounded-2xl animate-pulse h-64"></div>
+                        </div>
+                    </div>
+                    <!-- Les graphiques seront chargés dynamiquement ici -->
+            </div>
+
+                <!-- Contenu spécifique au rôle -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <!-- Section principale -->
+            <div class="lg:col-span-2 bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
+                <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-gray-900" id="main-section-title">Activité Récente</h3>
+                    <a href="historique.html" class="text-primary hover:text-secondary font-medium">Voir tout</a>
+                        </div>
+                        <div id="main-section-content" class="space-y-4">
+                            <!-- Skeleton de chargement -->
+                            <div id="main-section-skeleton">
+                                <div class="bg-gray-100 h-16 rounded-xl animate-pulse mb-2"></div>
+                                <div class="bg-gray-100 h-16 rounded-xl animate-pulse mb-2"></div>
+                                <div class="bg-gray-100 h-16 rounded-xl animate-pulse"></div>
+                            </div>
+                            <!-- Le contenu sera chargé dynamiquement -->
+                    </div>
+                </div>
+
+                    <!-- Section secondaire -->
+                    <div class="space-y-6" id="secondary-section">
+                        <!-- Skeleton de chargement -->
+                        <div id="secondary-section-skeleton">
+                            <div class="bg-gray-100 h-24 rounded-xl animate-pulse mb-2"></div>
+                            <div class="bg-gray-100 h-24 rounded-xl animate-pulse"></div>
+                        </div>
+                        <!-- Le contenu sera chargé dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="ui/sidebar.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

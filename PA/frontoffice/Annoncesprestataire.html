@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDeli - Annonces Prestataires</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer src="js/annonce.js"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow p-4">
+        <h1 class="text-2xl font-bold text-green-600">Annonces de services disponibles</h1>
+    </header>
+
+    <main class="p-4">
+        <div id="annonces" class="grid md:grid-cols-3 gap-6"></div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('annonces');
+            try {
+                const res = await fetch('http://localhost:4000/annonce');
+                const annonces = await res.json();
+
+                const filtered = annonces.filter(a => a.Statut === 'publiee');
+
+                for (const annonce of filtered) {
+                    const userRes = await fetch(`http://localhost:4000/utilisateur/${annonce.IdCreateur}`);
+                    const user = await userRes.json();
+
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded shadow p-4';
+
+                    card.innerHTML = `
+                        <img src="/images/${annonce.LienImage}" alt="${annonce.Titre}" class="w-full h-40 object-cover mb-4 rounded">
+                        <h2 class="text-xl font-bold text-green-700">${annonce.Titre}</h2>
+                        <p class="text-sm text-gray-600 mb-2">${annonce.Description}</p>
+                        <p class="text-sm text-gray-800">Date souhaitée : ${annonce.DateSouhaitee}</p>
+                        <p class="text-sm text-gray-800">Prix : ${annonce.Prix}€/heure</p>
+                        <p class="text-sm text-gray-500 mt-2 italic">Publié par : ${user.Prenom} ${user.Nom}</p>
+                    `;
+
+                    container.appendChild(card);
+                }
+            } catch (err) {
+                container.innerHTML = '<p class="text-red-500">Erreur lors du chargement des annonces.</p>';
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>

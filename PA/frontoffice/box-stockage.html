@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Stockage - EcoDeli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .badge-box {
+            display: inline-block;
+            padding: 0.25em 0.75em;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5em;
+        }
+        .badge-Disponible { background: #dcfce7; color: #16a34a; }
+        .badge-Réservée { background: #fef9c3; color: #ca8a04; }
+        .badge-Expirée { background: #fee2e2; color: #dc2626; }
+        @media (max-width: 640px) {
+            th, td { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-sans">
+    <!-- Feedback global -->
+    <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="hidden md:block w-64 bg-white/90 border-r border-gray-100 py-8 px-4">
+            <div id="sidebar"></div>
+        </aside>
+        <!-- Main content -->
+        <main class="flex-1">
+            <!-- Navigation (identique à annonces.html) -->
+            <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white/20">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-leaf text-white text-lg"></i>
+                                </div>
+                                <span class="text-2xl font-bold gradient-text">EcoDeli</span>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex items-center space-x-8">
+                            <a href="index.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Accueil</a>
+                            <a href="annonces.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Mes Annonces</a>
+                            <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Dashboard</a>
+                            <a href="historique.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Historique</a>
+                            <a href="abonnements.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Abonnements</a>
+                            <a href="#" class="text-primary font-semibold border-b-2 border-primary">Box Stockage</a>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <button id="notifications-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                                    <i class="fas fa-bell text-xl"></i>
+                                    <span id="notifications-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                                </button>
+                            </div>
+                            <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                                <span id="cart-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                            </button>
+                            <a href="profil.html" id="profile-btn" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-primary/10 transition-all duration-300">
+                                <img src="/placeholder.svg?height=40&width=40&query=user+avatar" alt="Profil" class="h-10 w-10 rounded-full border-2 border-primary/20">
+                                <div class="flex flex-col justify-center text-left">
+                                    <p class="font-medium text-gray-900 leading-none">Client</p>
+                                    <p class="text-xs text-gray-500 leading-none">Premium</p>
+                                </div>
+                                <i class="fas fa-chevron-down text-sm text-gray-500"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-primary/10 to-secondary/10 border-b border-white/20">
+                <div class="max-w-7xl mx-auto px-4 py-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div>
+                            <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Box de Stockage</h1>
+                            <p class="text-gray-600 text-lg">Gérez vos espaces de stockage sécurisés</p>
+                        </div>
+                        <!-- Bouton d'action -->
+                        <button onclick="openBoxModal()" class="mt-4 md:mt-0 bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-3">
+                            <i class="fas fa-box"></i>
+                            <span>Louer un nouveau box</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modale de réservation de box -->
+            <div id="box-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50">
+                <div class="flex items-center justify-center min-h-screen p-4">
+                    <div class="bg-white rounded-2xl max-w-xl w-full p-8 max-h-screen overflow-y-auto shadow-2xl">
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="text-2xl font-bold text-gray-900">Louer un box de stockage</h3>
+                            <button onclick="closeBoxModal()" class="text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <form id="box-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Taille *</label>
+                                    <select id="box-taille" name="taille" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                                        <option value="">Sélectionner</option>
+                                        <option value="petite">Petite</option>
+                                        <option value="moyenne">Moyenne</option>
+                                        <option value="grande">Grande</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Type *</label>
+                                    <select id="box-type" name="type" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                                        <option value="">Sélectionner</option>
+                                        <option value="standard">Standard</option>
+                                        <option value="temperee">Tempérée</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Entrepôt *</label>
+                                <input type="number" id="box-entrepot" name="entrepot" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="ID de l'entrepôt">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Date de début *</label>
+                                    <input type="date" id="box-date-debut" name="dateDebut" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Date de fin *</label>
+                                    <input type="date" id="box-date-fin" name="dateFin" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" id="box-assurance" name="assurance" class="text-primary focus:ring-primary">
+                                <label for="box-assurance" class="text-sm font-medium text-gray-700">Assurance</label>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                <textarea id="box-description" name="description" rows="3" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Détails supplémentaires..."></textarea>
+                            </div>
+                            <div class="flex justify-end space-x-4 pt-6 border-t">
+                                <button type="button" onclick="closeBoxModal()" class="px-8 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors font-medium">Annuler</button>
+                                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl hover:shadow-lg transition-all duration-300 font-medium">Réserver</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Liste des box -->
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div id="box-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Skeleton de chargement -->
+                    <div class="col-span-full" id="box-skeleton">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div class="bg-white p-6 rounded-xl animate-pulse h-40"></div>
+                            <div class="bg-white p-6 rounded-xl animate-pulse h-40"></div>
+                            <div class="bg-white p-6 rounded-xl animate-pulse h-40"></div>
+                        </div>
+                    </div>
+                    <!-- Les box seront chargés ici -->
+                </div>
+                <div class="mt-8 text-center sticky bottom-0 bg-white/80 py-2 rounded-b-2xl">
+                    <a href="dashboard.html" class="inline-block bg-primary text-white px-6 py-2 rounded-xl font-medium shadow hover:bg-secondary transition">Retour au dashboard</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="ui/sidebar.js"></script>
+    <script src="js/box-stockage.js"></script>
+    <!-- Modal Panier Universelle -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl relative">
+            <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold mb-6 text-center gradient-text">Mon Panier</h3>
+            <div id="cart-items" class="space-y-4 mb-6">
+                <!-- Items JS -->
+            </div>
+            <div class="flex justify-between items-center border-t pt-4 mb-4">
+                <span class="font-semibold text-lg">Total</span>
+                <span id="cart-total" class="font-bold text-xl text-primary">0 €</span>
+            </div>
+            <button onclick="proceedToPayment()" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-xl font-medium shadow hover:bg-secondary transition mb-2">
+                <i class="fab fa-cc-stripe mr-2"></i>Payer avec Stripe
+            </button>
+            <button onclick="clearCart()" class="w-full border border-gray-300 text-gray-700 py-2 rounded-xl font-medium hover:bg-gray-50 transition">Vider le panier</button>
+        </div>
+    </div>
+</body>
+</html> 

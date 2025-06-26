@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Historique - EcoDeli</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-sans">
+  <!-- Feedback global -->
+  <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden md:block w-64 bg-white/90 border-r border-gray-100 py-8 px-4">
+      <div id="sidebar"></div>
+    </aside>
+    <!-- Main content -->
+    <main class="flex-1">
+      <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="flex justify-between items-center py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                  <i class="fas fa-leaf text-white text-lg"></i>
+                </div>
+                <span class="text-2xl font-bold gradient-text">EcoDeli</span>
+              </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-8">
+              <a href="index.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Accueil</a>
+              <a href="annonces.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Mes Annonces</a>
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Dashboard</a>
+              <a href="#" class="text-primary font-semibold border-b-2 border-primary">Historique</a>
+              <a href="abonnements.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Abonnements</a>
+              <a href="box-stockage.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Box Stockage</a>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="relative">
+                <button id="notifications-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                  <i class="fas fa-bell text-xl"></i>
+                  <span id="notifications-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </button>
+              </div>
+              <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+              </button>
+              <a href="profil.html" id="profile-btn" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-primary/10 transition-all duration-300">
+                <img src="/placeholder.svg?height=40&width=40&query=user+avatar" alt="Profil" class="h-10 w-10 rounded-full border-2 border-primary/20">
+                <div class="flex flex-col justify-center text-left">
+                  <p class="font-medium text-gray-900 leading-none">Client</p>
+                  <p class="text-xs text-gray-500 leading-none">Premium</p>
+                </div>
+                <i class="fas fa-chevron-down text-sm text-gray-500"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="max-w-4xl mx-auto px-2 md:px-4 py-8 md:py-12">
+        <div class="bg-white/80 backdrop-blur-sm p-4 md:p-8 rounded-2xl shadow-lg border border-white/20">
+          <h2 class="text-3xl font-bold mb-6 text-center gradient-text">Mon Historique</h2>
+          <div id="feedback-message" class="hidden mb-4 text-center"></div>
+          <!-- Filtres dynamiques -->
+          <div class="flex flex-col md:flex-row md:items-center md:space-x-4 mb-6">
+            <div class="mb-2 md:mb-0">
+              <label for="filter-type" class="block text-sm font-medium text-gray-700 mb-1">Type d'action</label>
+              <select id="filter-type" class="border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                <option value="">Tous</option>
+                <option value="Annonce">Annonce</option>
+                <option value="Livraison">Livraison</option>
+                <option value="Box">Box</option>
+                <option value="Paiement">Paiement</option>
+                <option value="Évaluation">Évaluation</option>
+              </select>
+            </div>
+            <div class="mb-2 md:mb-0">
+              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Depuis</label>
+              <input type="date" id="filter-date" class="border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+            </div>
+            <div class="flex-1 flex items-end">
+              <button id="apply-filters" class="bg-primary text-white py-2 px-6 rounded-xl font-medium hover:bg-secondary transition-colors ml-auto">Filtrer</button>
+              <button id="reset-filters" class="ml-2 text-gray-500 hover:text-primary underline text-sm">Réinitialiser</button>
+            </div>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                  <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Détail</th>
+                </tr>
+              </thead>
+              <tbody id="historique-body" class="bg-white divide-y divide-gray-200">
+                <!-- Lignes JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-6 text-center sticky bottom-0 bg-white/80 py-2 rounded-b-2xl">
+            <a href="dashboard.html" class="inline-block bg-primary text-white px-6 py-2 rounded-xl font-medium shadow hover:bg-secondary transition">Retour au dashboard</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="ui/sidebar.js"></script>
+  <script src="js/historique.js"></script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .badge-action {
+      display: inline-block;
+      padding: 0.25em 0.75em;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 0.5em;
+    }
+    .badge-Livraison { background: #e0f2fe; color: #2563eb; }
+    .badge-Box { background: #fef9c3; color: #ca8a04; }
+    .badge-Paiement { background: #dcfce7; color: #16a34a; }
+    .badge-Annonce { background: #f3e8ff; color: #a21caf; }
+    @media (max-width: 640px) {
+      th, td { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    }
+  </style>
+</body>
+</html> 

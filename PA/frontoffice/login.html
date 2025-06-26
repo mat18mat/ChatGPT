@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - EcoDeli</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">Connexion</h2>
+            <div id="login-error" class="hidden bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="email" class="block font-medium mb-2">Email</label>
+                    <input type="email" id="email" required class="form-control w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                </div>
+                <div>
+                    <label for="password" class="block font-medium mb-2">Mot de passe</label>
+                    <input type="password" id="password" required class="form-control w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium">Se connecter</button>
+            </form>
+            <form id="twofa-form" class="space-y-6" style="display:none;">
+                <div>
+                    <label for="twofa-code" class="block font-medium mb-2">Code de vérification reçu par mail</label>
+                    <input type="text" id="twofa-code" maxlength="6" required class="form-control w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                </div>
+                <div id="twofa-error" class="hidden bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded"></div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium">Valider le code</button>
+            </form>
+            <div class="mt-6 text-center">
+                <a href="register.html" class="text-indigo-600 hover:underline">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/roleApi.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html> 

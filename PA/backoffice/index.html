@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backoffice - Gestion des Livraisons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg border-b">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-gray-900">Backoffice Livraisons</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">Admin</span>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="flex">
+        <aside class="w-64 bg-white shadow-lg h-screen">
+            <nav class="mt-8">
+                <a href="#" onclick="loadPage('livraisons')" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 border-l-4 border-transparent hover:border-primary">
+                    🚚 Gestion des Livraisons
+                </a>
+                <a href="#" onclick="loadPage('logs')" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 border-l-4 border-transparent hover:border-primary">
+                    📋 Logs du Système
+                </a>
+                <a href="#" onclick="loadPage('boxes')" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 border-l-4 border-transparent hover:border-primary">
+                    📦 Box de Stockage
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <div class="main-container">
+                <div id="sidebar"></div>
+                <div class="content">
+                    <header class="mb-8">
+                        <h1 class="text-2xl font-bold mb-4">Dashboard Backoffice</h1>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" id="stats-cards">
+                            <div class="bg-blue-100 rounded-lg p-5 flex flex-col items-center shadow">
+                                <div class="text-3xl font-bold text-blue-700" id="stat-users">-</div>
+                                <div class="text-blue-700 mt-2">Utilisateurs</div>
+                            </div>
+                            <div class="bg-green-100 rounded-lg p-5 flex flex-col items-center shadow">
+                                <div class="text-3xl font-bold text-green-700" id="stat-annonces">-</div>
+                                <div class="text-green-700 mt-2">Annonces</div>
+                            </div>
+                            <div class="bg-purple-100 rounded-lg p-5 flex flex-col items-center shadow">
+                                <div class="text-3xl font-bold text-purple-700" id="stat-livraisons">-</div>
+                                <div class="text-purple-700 mt-2">Livraisons</div>
+                            </div>
+                            <div class="bg-pink-100 rounded-lg p-5 flex flex-col items-center shadow">
+                                <div class="text-3xl font-bold text-pink-700" id="stat-boxes">-</div>
+                                <div class="text-pink-700 mt-2">Boxes</div>
+                            </div>
+                            <div class="bg-yellow-100 rounded-lg p-5 flex flex-col items-center shadow md:col-span-4">
+                                <div class="text-3xl font-bold text-yellow-700" id="stat-logs">-</div>
+                                <div class="text-yellow-700 mt-2">Logs</div>
+                            </div>
+                        </div>
+                    </header>
+                    <div id="content-area">
+                        <!-- Le contenu sera chargé ici -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour les détails de livraison -->
+    <div id="modal-livraison" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">Détails de la Livraison</h3>
+                        <button onclick="closeModal('modal-livraison')" class="text-gray-400 hover:text-gray-600">
+                            <span class="text-2xl">&times;</span>
+                        </button>
+                    </div>
+                    <div id="livraison-details">
+                        <!-- Les détails seront chargés ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour gérer les accès aux box -->
+    <div id="modal-access" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">Gérer les Accès</h3>
+                        <button onclick="closeModal('modal-access')" class="text-gray-400 hover:text-gray-600">
+                            <span class="text-2xl">&times;</span>
+                        </button>
+                    </div>
+                    <div id="access-content">
+                        <!-- Le contenu sera chargé ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="livraisons.js"></script>
+    <script src="logs.js"></script>
+    <script src="boxes.js"></script>
+
+    <script>
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPage('livraisons');
+        });
+
+        // Navigation entre pages
+        async function loadPage(page) {
+            try {
+                const response = await fetch(`${page}.html`);
+                const html = await response.text();
+                document.getElementById('content-area').innerHTML = html;
+                
+                // Mettre à jour la navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('border-primary', 'bg-gray-100');
+                });
+                event.target.classList.add('border-primary', 'bg-gray-100');
+                
+                // Initialiser la page chargée
+                switch(page) {
+                    case 'livraisons':
+                        initLivraisons();
+                        break;
+                    case 'logs':
+                        initLogs();
+                        break;
+                    case 'boxes':
+                        initBoxes();
+                        break;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement de la page:', error);
+                showNotification('Erreur lors du chargement de la page', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

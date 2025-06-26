@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Annonces - EcoDeli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .badge-annonce {
+            display: inline-block;
+            padding: 0.25em 0.75em;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5em;
+        }
+        .badge-publiée { background: #dcfce7; color: #16a34a; }
+        .badge-expirée { background: #fee2e2; color: #dc2626; }
+        .badge-brouillon { background: #fef9c3; color: #ca8a04; }
+        .badge-archivée { background: #e0e7ef; color: #64748b; }
+        @media (max-width: 640px) {
+            th, td { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-sans">
+    <!-- Feedback global -->
+    <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="hidden md:block w-64 bg-white/90 border-r border-gray-100 py-8 px-4">
+            <div id="sidebar"></div>
+        </aside>
+        <!-- Main content -->
+        <main class="flex-1">
+    <!-- Navigation (identique à index.html) -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-lg"></i>
+                        </div>
+                        <span class="text-2xl font-bold gradient-text">EcoDeli</span>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Accueil</a>
+                    <a href="#" class="text-primary font-semibold border-b-2 border-primary">Mes Annonces</a>
+                    <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Dashboard</a>
+                    <a href="historique.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Historique</a>
+                    <a href="abonnements.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Abonnements</a>
+                    <a href="box-stockage.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Box Stockage</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notifications-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notifications-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Panier -->
+                    <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-primary transition-colors rounded-full hover:bg-primary/10">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                    </button>
+                    
+                    <!-- Profil -->
+                    <div class="relative">
+                        <button id="profile-btn" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-primary/10 transition-all duration-300">
+                            <img src="/placeholder.svg?height=40&width=40&query=user+avatar" alt="Profil" class="h-10 w-10 rounded-full border-2 border-primary/20">
+                            <div class="hidden md:block text-left">
+                                <p class="font-medium text-gray-900">Client</p>
+                                <p class="text-xs text-gray-500">Premium</p>
+                            </div>
+                            <i class="fas fa-chevron-down text-sm text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-primary/10 to-secondary/10 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Annonces</h1>
+                    <p class="text-gray-600 text-lg">Gérez toutes vos demandes de services et livraisons</p>
+                </div>
+                <button onclick="openCreateModal()" class="mt-4 md:mt-0 bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-3">
+                    <i class="fas fa-plus"></i>
+                    <span>Nouvelle annonce</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtres et recherche -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-8 border border-white/20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rechercher</label>
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Titre, description..." class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
+                    <select id="filter-status" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                        <option value="">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="accepted">Acceptée</option>
+                        <option value="in_progress">En cours</option>
+                        <option value="completed">Terminée</option>
+                        <option value="cancelled">Annulée</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                    <select id="filter-type" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                        <option value="">Tous les types</option>
+                        <option value="delivery">Livraison</option>
+                        <option value="pickup">Récupération</option>
+                        <option value="service">Service</option>
+                        <option value="express">Express</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                    <input type="date" id="filter-date" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                </div>
+                <div class="flex items-end">
+                    <button onclick="applyFilters()" class="w-full bg-primary text-white py-3 rounded-xl hover:bg-secondary transition-colors font-medium">
+                        <i class="fas fa-filter mr-2"></i>
+                        Filtrer
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques rapides -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-white/20">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-primary" id="stats-total">0</div>
+                    <div class="text-sm text-gray-600">Total</div>
+                </div>
+            </div>
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-white/20">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-warning" id="stats-pending">0</div>
+                    <div class="text-sm text-gray-600">En attente</div>
+                </div>
+            </div>
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-white/20">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-success" id="stats-completed">0</div>
+                    <div class="text-sm text-gray-600">Terminées</div>
+                </div>
+            </div>
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-white/20">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-accent" id="stats-revenue">0€</div>
+                    <div class="text-sm text-gray-600">Économisé</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Liste des annonces -->
+        <div id="announcements-list" class="space-y-6">
+            <!-- Les annonces seront chargées ici -->
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="flex justify-center mt-8">
+            <!-- Pagination sera générée ici -->
+        </div>
+    </div>
+
+    <!-- Modal Création/Édition d'annonce -->
+    <div id="announcement-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl max-w-4xl w-full p-8 max-h-screen overflow-y-auto shadow-2xl">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900">Nouvelle annonce</h3>
+                    <button onclick="closeAnnouncementModal()" class="text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <form id="announcement-form" class="space-y-8">
+                    <!-- Type d'annonce -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-4">Type d'annonce *</label>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="type" value="delivery" class="sr-only peer" required>
+                                <div class="p-6 border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 hover:border-primary/50 transition-all">
+                                    <div class="text-center">
+                                        <i class="fas fa-truck text-3xl text-primary mb-3"></i>
+                                        <h4 class="font-semibold">Livraison</h4>
+                                        <p class="text-sm text-gray-600">Envoyer un colis</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="type" value="pickup" class="sr-only peer">
+                                <div class="p-6 border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 hover:border-primary/50 transition-all">
+                                    <div class="text-center">
+                                        <i class="fas fa-hand-holding text-3xl text-primary mb-3"></i>
+                                        <h4 class="font-semibold">Récupération</h4>
+                                        <p class="text-sm text-gray-600">Récupérer un colis</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="type" value="service" class="sr-only peer">
+                                <div class="p-6 border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 hover:border-primary/50 transition-all">
+                                    <div class="text-center">
+                                        <i class="fas fa-tools text-3xl text-primary mb-3"></i>
+                                        <h4 class="font-semibold">Service</h4>
+                                        <p class="text-sm text-gray-600">Demander un service</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="type" value="express" class="sr-only peer">
+                                <div class="p-6 border-2 border-gray-200 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 hover:border-primary/50 transition-all">
+                                    <div class="text-center">
+                                        <i class="fas fa-bolt text-3xl text-primary mb-3"></i>
+                                        <h4 class="font-semibold">Express</h4>
+                                        <p class="text-sm text-gray-600">Urgent</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Informations de base -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Titre *</label>
+                            <input type="text" id="title" name="title" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Ex: Livraison de documents urgents">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
+                            <select id="category" name="category" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                                <option value="">Sélectionner une catégorie</option>
+                                <option value="documents">Documents</option>
+                                <option value="colis">Colis</option>
+                                <option value="nourriture">Nourriture</option>
+                                <option value="meuble">Mobilier</option>
+                                <option value="electronique">Électronique</option>
+                                <option value="vetements">Vêtements</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                        <textarea id="description" name="description" rows="4" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Décrivez votre demande en détail..."></textarea>
+                    </div>
+
+                    <!-- Adresses -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Adresse de départ *</label>
+                            <div class="relative">
+                                <input type="text" id="pickup_address" name="pickup_address" required class="w-full border border-gray-200 rounded-xl px-4 py-3 pr-12 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Adresse complète">
+                                <button type="button" onclick="getCurrentLocation('pickup')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary hover:text-secondary">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Adresse de livraison *</label>
+                            <div class="relative">
+                                <input type="text" id="delivery_address" name="delivery_address" required class="w-full border border-gray-200 rounded-xl px-4 py-3 pr-12 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Adresse complète">
+                                <button type="button" onclick="getCurrentLocation('delivery')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary hover:text-secondary">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Détails -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date souhaitée *</label>
+                            <input type="datetime-local" id="preferred_date" name="preferred_date" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Prix proposé (€)</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="0.00">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Poids estimé (kg)</label>
+                            <input type="number" id="weight" name="weight" step="0.1" min="0" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="0.0">
+                        </div>
+                    </div>
+
+                    <!-- Options supplémentaires -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-4">Options supplémentaires</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="flex items-center space-x-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer">
+                                <input type="checkbox" name="options[]" value="fragile" class="text-primary focus:ring-primary">
+                                <div>
+                                    <div class="font-medium">Fragile</div>
+                                    <div class="text-sm text-gray-600">Manipulation délicate requise</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center space-x-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer">
+                                <input type="checkbox" name="options[]" value="urgent" class="text-primary focus:ring-primary">
+                                <div>
+                                    <div class="font-medium">Urgent</div>
+                                    <div class="text-sm text-gray-600">Livraison prioritaire</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center space-x-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer">
+                                <input type="checkbox" name="options[]" value="signature" class="text-primary focus:ring-primary">
+                                <div>
+                                    <div class="font-medium">Signature requise</div>
+                                    <div class="text-sm text-gray-600">Remise en main propre</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center space-x-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer">
+                                <input type="checkbox" name="options[]" value="insurance" class="text-primary focus:ring-primary">
+                                <div>
+                                    <div class="font-medium">Assurance</div>
+                                    <div class="text-sm text-gray-600">Protection contre les dommages</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Photos -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Photos (optionnel)</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-primary transition-colors">
+                            <input type="file" id="photos" name="photos" multiple accept="image/*" class="hidden">
+                            <label for="photos" class="cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-600">Cliquez pour ajouter des photos ou glissez-déposez</p>
+                                <p class="text-sm text-gray-500 mt-2">PNG, JPG jusqu'à 10MB chacune</p>
+                            </label>
+                            <div id="photo-preview" class="mt-4 grid grid-cols-3 gap-4 hidden">
+                                <!-- Aperçu des photos -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-4 pt-6 border-t">
+                        <button type="button" onclick="closeAnnouncementModal()" class="px-8 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors font-medium">
+                            Annuler
+                        </button>
+                        <button type="submit" class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl hover:shadow-lg transition-all duration-300 font-medium">
+                            Publier l'annonce
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            </div>
+
+            <!-- Modal Panier Universelle -->
+            <div id="cart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+                <div class="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl relative">
+                    <button onclick="closeCart()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                    <h3 class="text-2xl font-bold mb-6 text-center gradient-text">Mon Panier</h3>
+                    <div id="cart-items" class="space-y-4 mb-6">
+                        <!-- Items JS -->
+                    </div>
+                    <div class="flex justify-between items-center border-t pt-4 mb-4">
+                        <span class="font-semibold text-lg">Total</span>
+                        <span id="cart-total" class="font-bold text-xl text-primary">0 €</span>
+                    </div>
+                    <button onclick="proceedToPayment()" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-xl font-medium shadow hover:bg-secondary transition mb-2">
+                        <i class="fab fa-cc-stripe mr-2"></i>Payer avec Stripe
+                    </button>
+                    <button onclick="clearCart()" class="w-full border border-gray-300 text-gray-700 py-2 rounded-xl font-medium hover:bg-gray-50 transition">Vider le panier</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Inclure la modal de notation -->
+    <div id="rating-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl animate-slide-up">
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-r from-warning to-orange-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-star text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Noter le service</h3>
+                    <p class="text-gray-600">Votre avis nous aide à améliorer la qualité</p>
+                </div>
+
+                <form id="rating-form" class="space-y-6">
+                    <input type="hidden" id="rating-announcement-id" name="announcementId">
+                    <input type="hidden" id="rating-provider-id" name="providerId">
+
+                    <!-- Informations du prestataire -->
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <div class="flex items-center space-x-3">
+                            <img id="rating-provider-avatar" src="/placeholder.svg" alt="Prestataire" class="w-12 h-12 rounded-full">
+                            <div>
+                                <h4 id="rating-provider-name" class="font-semibold text-gray-900"></h4>
+                                <p id="rating-announcement-title" class="text-sm text-gray-600"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notation par étoiles -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Note globale *</label>
+                        <div class="flex justify-center space-x-2 mb-2">
+                            <button type="button" class="star-btn text-4xl text-gray-300 hover:text-warning transition-colors" data-rating="1">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button type="button" class="star-btn text-4xl text-gray-300 hover:text-warning transition-colors" data-rating="2">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button type="button" class="star-btn text-4xl text-gray-300 hover:text-warning transition-colors" data-rating="3">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button type="button" class="star-btn text-4xl text-gray-300 hover:text-warning transition-colors" data-rating="4">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button type="button" class="star-btn text-4xl text-gray-300 hover:text-warning transition-colors" data-rating="5">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                        <p class="text-center text-sm text-gray-500" id="rating-text">Cliquez sur les étoiles pour noter</p>
+                        <input type="hidden" id="overall-rating" name="overallRating" required>
+                    </div>
+
+                    <!-- Critères détaillés -->
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-gray-900">Évaluation détaillée</h4>
+                        
+                        <!-- Ponctualité -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Ponctualité</label>
+                                <span class="text-sm text-gray-500" id="punctuality-value">0/5</span>
+                            </div>
+                            <div class="flex space-x-1">
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="punctuality" data-rating="1">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="punctuality" data-rating="2">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="punctuality" data-rating="3">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="punctuality" data-rating="4">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="punctuality" data-rating="5">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" name="punctuality" id="punctuality-rating" value="0">
+                        </div>
+
+                        <!-- Qualité du service -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Qualité du service</label>
+                                <span class="text-sm text-gray-500" id="quality-value">0/5</span>
+                            </div>
+                            <div class="flex space-x-1">
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="quality" data-rating="1">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="quality" data-rating="2">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="quality" data-rating="3">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="quality" data-rating="4">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="quality" data-rating="5">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" name="quality" id="quality-rating" value="0">
+                        </div>
+
+                        <!-- Communication -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-medium text-gray-700">Communication</label>
+                                <span class="text-sm text-gray-500" id="communication-value">0/5</span>
+                            </div>
+                            <div class="flex space-x-1">
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="communication" data-rating="1">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="communication" data-rating="2">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="communication" data-rating="2">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="communication" data-rating="3">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="communication" data-rating="4">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="criteria-star text-lg text-gray-300 hover:text-warning transition-colors" data-criteria="communication" data-rating="5">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" name="communication" id="communication-rating" value="0">
+                        </div>
+                    </div>
+
+                    <!-- Commentaire -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Commentaire (optionnel)</label>
+                        <textarea name="comment" id="rating-comment" rows="4" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Partagez votre expérience avec ce prestataire..."></textarea>
+                    </div>
+
+                    <!-- Recommandation -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Recommanderiez-vous ce prestataire ?</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="recommend" value="yes" class="text-success focus:ring-success">
+                                <span class="text-sm">Oui, je recommande</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="recommend" value="no" class="text-danger focus:ring-danger">
+                                <span class="text-sm">Non, je ne recommande pas</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pourboire (optionnel) -->
+                    <div class="bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-xl">
+                        <div class="flex items-center justify-between mb-3">
+                            <label class="text-sm font-medium text-gray-700">Pourboire (optionnel)</label>
+                            <i class="fas fa-heart text-red-500"></i>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2 mb-3">
+                            <button type="button" class="tip-btn px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary hover:bg-primary/5 transition-colors" data-tip="2">
+                                2€
+                            </button>
+                            <button type="button" class="tip-btn px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary hover:bg-primary/5 transition-colors" data-tip="5">
+                                5€
+                            </button>
+                            <button type="button" class="tip-btn px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary hover:bg-primary/5 transition-colors" data-tip="10">
+                                10€
+                            </button>
+                            <button type="button" class="tip-btn px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary hover:bg-primary/5 transition-colors" data-tip="custom">
+                                Autre
+                            </button>
+                        </div>
+                        <input type="number" name="tip" id="tip-amount" step="0.50" min="0" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm hidden" placeholder="Montant personnalisé">
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="flex space-x-4 pt-4">
+                        <button type="button" onclick="closeRatingModal()" class="flex-1 px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors font-medium">
+                            Annuler
+                        </button>
+                        <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-warning to-orange-400 text-white rounded-xl hover:shadow-lg transition-all duration-300 font-medium">
+                            Publier l'avis
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/announcements.js"></script>
+</body>
+</html>

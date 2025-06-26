@@ -1,0 +1,3787 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Node.js Express",
+    "description": "Documentation compl\u00e8te de l'API g\u00e9n\u00e9r\u00e9e automatiquement."
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/abonnements": {
+      "get": {
+        "tags": [
+          "abonnements"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les abonnements",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "abonnements"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans abonnements",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "abonnements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/abonnements"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/abonnements/{id}": {
+      "get": {
+        "tags": [
+          "abonnements"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un abonnements par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "abonnements"
+        ],
+        "summary": "Mettre \u00e0 jour un abonnements (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "abonnements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/abonnements"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "abonnements"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un abonnements (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "abonnements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/abonnements"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "abonnements"
+        ],
+        "summary": "Supprimer un abonnements",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/annonces": {
+      "get": {
+        "tags": [
+          "annonces"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les annonces",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "annonces"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans annonces",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "annonces",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/annonces"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/annonces/{id}": {
+      "get": {
+        "tags": [
+          "annonces"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un annonces par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "annonces"
+        ],
+        "summary": "Mettre \u00e0 jour un annonces (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "annonces",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/annonces"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "annonces"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un annonces (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "annonces",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/annonces"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "annonces"
+        ],
+        "summary": "Supprimer un annonces",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/boxstockage": {
+      "get": {
+        "tags": [
+          "boxstockage"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les boxstockage",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "boxstockage"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans boxstockage",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "boxstockage",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/boxstockage"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/boxstockage/{id}": {
+      "get": {
+        "tags": [
+          "boxstockage"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un boxstockage par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "boxstockage"
+        ],
+        "summary": "Mettre \u00e0 jour un boxstockage (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "boxstockage",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/boxstockage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "boxstockage"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un boxstockage (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "boxstockage",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/boxstockage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "boxstockage"
+        ],
+        "summary": "Supprimer un boxstockage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/colis": {
+      "get": {
+        "tags": [
+          "colis"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les colis",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "colis"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans colis",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "colis",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/colis"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/colis/{id}": {
+      "get": {
+        "tags": [
+          "colis"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un colis par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "colis"
+        ],
+        "summary": "Mettre \u00e0 jour un colis (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "colis",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/colis"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "colis"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un colis (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "colis",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/colis"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "colis"
+        ],
+        "summary": "Supprimer un colis",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/commercants": {
+      "get": {
+        "tags": [
+          "commercants"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les commercants",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "commercants"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans commercants",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "commercants",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/commercants"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/commercants/{id}": {
+      "get": {
+        "tags": [
+          "commercants"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un commercants par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "commercants"
+        ],
+        "summary": "Mettre \u00e0 jour un commercants (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "commercants",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/commercants"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "commercants"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un commercants (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "commercants",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/commercants"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "commercants"
+        ],
+        "summary": "Supprimer un commercants",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/contrats": {
+      "get": {
+        "tags": [
+          "contrats"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les contrats",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contrats"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans contrats",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "contrats",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contrats"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/contrats/{id}": {
+      "get": {
+        "tags": [
+          "contrats"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un contrats par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contrats"
+        ],
+        "summary": "Mettre \u00e0 jour un contrats (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "contrats",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contrats"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "contrats"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un contrats (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "contrats",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contrats"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contrats"
+        ],
+        "summary": "Supprimer un contrats",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/courses": {
+      "get": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les courses",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans courses",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "courses",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/courses"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un courses par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Mettre \u00e0 jour un courses (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "courses",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/courses"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un courses (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "courses",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/courses"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Supprimer un courses",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/entrepots": {
+      "get": {
+        "tags": [
+          "entrepots"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les entrepots",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "entrepots"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans entrepots",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "entrepots",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entrepots"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/entrepots/{id}": {
+      "get": {
+        "tags": [
+          "entrepots"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un entrepots par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "entrepots"
+        ],
+        "summary": "Mettre \u00e0 jour un entrepots (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "entrepots",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entrepots"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "entrepots"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un entrepots (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "entrepots",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entrepots"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "entrepots"
+        ],
+        "summary": "Supprimer un entrepots",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/etapes": {
+      "get": {
+        "tags": [
+          "etapes"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les etapes",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "etapes"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans etapes",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "etapes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/etapes"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/etapes/{id}": {
+      "get": {
+        "tags": [
+          "etapes"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un etapes par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "etapes"
+        ],
+        "summary": "Mettre \u00e0 jour un etapes (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "etapes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/etapes"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "etapes"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un etapes (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "etapes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/etapes"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "etapes"
+        ],
+        "summary": "Supprimer un etapes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/evaluations": {
+      "get": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les evaluations",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans evaluations",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "evaluations",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/evaluations"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/evaluations/{id}": {
+      "get": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un evaluations par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "Mettre \u00e0 jour un evaluations (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "evaluations",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/evaluations"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un evaluations (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "evaluations",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/evaluations"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "Supprimer un evaluations",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/factures": {
+      "get": {
+        "tags": [
+          "factures"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les factures",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "factures"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans factures",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "factures",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/factures"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/factures/{id}": {
+      "get": {
+        "tags": [
+          "factures"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un factures par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "factures"
+        ],
+        "summary": "Mettre \u00e0 jour un factures (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "factures",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/factures"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "factures"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un factures (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "factures",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/factures"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "factures"
+        ],
+        "summary": "Supprimer un factures",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/livreurs": {
+      "get": {
+        "tags": [
+          "livreurs"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les livreurs",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "livreurs"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans livreurs",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "livreurs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/livreurs"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/livreurs/{id}": {
+      "get": {
+        "tags": [
+          "livreurs"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un livreurs par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "livreurs"
+        ],
+        "summary": "Mettre \u00e0 jour un livreurs (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "livreurs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/livreurs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "livreurs"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un livreurs (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "livreurs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/livreurs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "livreurs"
+        ],
+        "summary": "Supprimer un livreurs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/logs": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les logs",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans logs",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "logs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/logs"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/logs/{id}": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un logs par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Mettre \u00e0 jour un logs (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "logs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/logs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un logs (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "logs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/logs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Supprimer un logs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les notifications",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans notifications",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "notifications",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/notifications"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/notifications/{id}": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un notifications par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Mettre \u00e0 jour un notifications (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "notifications",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/notifications"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un notifications (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "notifications",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/notifications"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Supprimer un notifications",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/paiements": {
+      "get": {
+        "tags": [
+          "paiements"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les paiements",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "paiements"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans paiements",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "paiements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/paiements"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/paiements/{id}": {
+      "get": {
+        "tags": [
+          "paiements"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un paiements par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "paiements"
+        ],
+        "summary": "Mettre \u00e0 jour un paiements (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "paiements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/paiements"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "paiements"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un paiements (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "paiements",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/paiements"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "paiements"
+        ],
+        "summary": "Supprimer un paiements",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/prestataires": {
+      "get": {
+        "tags": [
+          "prestataires"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les prestataires",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "prestataires"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans prestataires",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "prestataires",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/prestataires"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/prestataires/{id}": {
+      "get": {
+        "tags": [
+          "prestataires"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un prestataires par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "prestataires"
+        ],
+        "summary": "Mettre \u00e0 jour un prestataires (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "prestataires",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/prestataires"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "prestataires"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un prestataires (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "prestataires",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/prestataires"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "prestataires"
+        ],
+        "summary": "Supprimer un prestataires",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/roles": {
+      "get": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les roles",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans roles",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "roles",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/roles"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/roles/{id}": {
+      "get": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un roles par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Mettre \u00e0 jour un roles (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "roles",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/roles"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un roles (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "roles",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/roles"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Supprimer un roles",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/statistiques": {
+      "get": {
+        "tags": [
+          "statistiques"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les statistiques",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "statistiques"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans statistiques",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "statistiques",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/statistiques"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/statistiques/{id}": {
+      "get": {
+        "tags": [
+          "statistiques"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un statistiques par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "statistiques"
+        ],
+        "summary": "Mettre \u00e0 jour un statistiques (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "statistiques",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/statistiques"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "statistiques"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un statistiques (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "statistiques",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/statistiques"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "statistiques"
+        ],
+        "summary": "Supprimer un statistiques",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/taches": {
+      "get": {
+        "tags": [
+          "taches"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les taches",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "taches"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans taches",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "taches",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/taches/{id}": {
+      "get": {
+        "tags": [
+          "taches"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un taches par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "taches"
+        ],
+        "summary": "Mettre \u00e0 jour un taches (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "taches",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "taches"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un taches (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "taches",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/taches"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "taches"
+        ],
+        "summary": "Supprimer un taches",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/utilisateurs": {
+      "get": {
+        "tags": [
+          "utilisateurs"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les utilisateurs",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "utilisateurs"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans utilisateurs",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "utilisateurs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/utilisateurs"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/utilisateurs/{id}": {
+      "get": {
+        "tags": [
+          "utilisateurs"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un utilisateurs par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "utilisateurs"
+        ],
+        "summary": "Mettre \u00e0 jour un utilisateurs (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "utilisateurs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/utilisateurs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "utilisateurs"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un utilisateurs (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "utilisateurs",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/utilisateurs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "utilisateurs"
+        ],
+        "summary": "Supprimer un utilisateurs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/zonetravail": {
+      "get": {
+        "tags": [
+          "zonetravail"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les zonetravail",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "zonetravail"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans zonetravail",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "zonetravail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/zonetravail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/zonetravail/{id}": {
+      "get": {
+        "tags": [
+          "zonetravail"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un zonetravail par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "zonetravail"
+        ],
+        "summary": "Mettre \u00e0 jour un zonetravail (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "zonetravail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/zonetravail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "zonetravail"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un zonetravail (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "zonetravail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/zonetravail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "zonetravail"
+        ],
+        "summary": "Supprimer un zonetravail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/contientetape": {
+      "get": {
+        "tags": [
+          "contientetape"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les contientetape",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contientetape"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans contientetape",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "contientetape",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contientetape"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/contientetape/{id}": {
+      "get": {
+        "tags": [
+          "contientetape"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un contientetape par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contientetape"
+        ],
+        "summary": "Mettre \u00e0 jour un contientetape (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "contientetape",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contientetape"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "contientetape"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un contientetape (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "contientetape",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/contientetape"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contientetape"
+        ],
+        "summary": "Supprimer un contientetape",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/effectuepar": {
+      "get": {
+        "tags": [
+          "effectuepar"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les effectuepar",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "effectuepar"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans effectuepar",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "effectuepar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/effectuepar"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/effectuepar/{id}": {
+      "get": {
+        "tags": [
+          "effectuepar"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un effectuepar par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "effectuepar"
+        ],
+        "summary": "Mettre \u00e0 jour un effectuepar (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "effectuepar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/effectuepar"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "effectuepar"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un effectuepar (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "effectuepar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/effectuepar"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "effectuepar"
+        ],
+        "summary": "Supprimer un effectuepar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/evalue": {
+      "get": {
+        "tags": [
+          "evalue"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les evalue",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "evalue"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans evalue",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "evalue",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/evalue"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/evalue/{id}": {
+      "get": {
+        "tags": [
+          "evalue"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un evalue par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "evalue"
+        ],
+        "summary": "Mettre \u00e0 jour un evalue (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "evalue",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/evalue"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "evalue"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un evalue (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "evalue",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/evalue"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "evalue"
+        ],
+        "summary": "Supprimer un evalue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/recoit": {
+      "get": {
+        "tags": [
+          "recoit"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les recoit",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "recoit"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans recoit",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "recoit",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/recoit"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/recoit/{id}": {
+      "get": {
+        "tags": [
+          "recoit"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un recoit par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "recoit"
+        ],
+        "summary": "Mettre \u00e0 jour un recoit (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "recoit",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/recoit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "recoit"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un recoit (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "recoit",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/recoit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "recoit"
+        ],
+        "summary": "Supprimer un recoit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    },
+    "/roleutilisateur": {
+      "get": {
+        "tags": [
+          "roleutilisateur"
+        ],
+        "summary": "R\u00e9cup\u00e9rer tous les roleutilisateur",
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "roleutilisateur"
+        ],
+        "summary": "Cr\u00e9er un nouvel \u00e9l\u00e9ment dans roleutilisateur",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "roleutilisateur",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/roleutilisateur"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cr\u00e9\u00e9 avec succ\u00e8s"
+          }
+        }
+      }
+    },
+    "/roleutilisateur/{id}": {
+      "get": {
+        "tags": [
+          "roleutilisateur"
+        ],
+        "summary": "R\u00e9cup\u00e9rer un roleutilisateur par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "roleutilisateur"
+        ],
+        "summary": "Mettre \u00e0 jour un roleutilisateur (PUT)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "roleutilisateur",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/roleutilisateur"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mis \u00e0 jour"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "roleutilisateur"
+        ],
+        "summary": "Mettre \u00e0 jour partiellement un roleutilisateur (PATCH)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "roleutilisateur",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/roleutilisateur"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partiellement mis \u00e0 jour"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "roleutilisateur"
+        ],
+        "summary": "Supprimer un roleutilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Supprim\u00e9 avec succ\u00e8s"
+          },
+          "404": {
+            "description": "Non trouv\u00e9"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "abonnements": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "annonces": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "boxstockage": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "colis": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "commercants": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "contrats": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "courses": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "entrepots": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "etapes": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "evaluations": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "factures": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "livreurs": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "logs": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "paiements": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "prestataires": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "statistiques": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "taches": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "utilisateurs": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "zonetravail": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "contientetape": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "effectuepar": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "evalue": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "recoit": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    },
+    "roleutilisateur": {
+      "type": "object",
+      "properties": {
+        "champ1": {
+          "type": "string"
+        },
+        "champ2": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

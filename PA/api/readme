@@ -1,0 +1,110 @@
+# Ecodeli - API REST Node.js + Express
+
+## 1. Présentation
+
+Cette API a été développée en Node.js avec le framework Express.  
+Elle permet de gérer toutes les entités du projet Ecodeli, comme les utilisateurs, abonnements, prestataires, etc.
+
+Elle repose sur une base de données MySQL, manipulée via Sequelize (ORM).
+
+---
+
+## 2. Architecture du projet
+
+### `app.js`
+Fichier principal de l'application Express.
+- Configure :
+  - Les middlewares globaux (CORS, Helmet, BodyParser, etc.),
+  - Les routes (modules du dossier `routes/`),
+  - Le parsing JSON.
+
+### `server.js`
+Point d'entrée de l'API.  
+- Lance le serveur après avoir :
+  - Chargé les variables d’environnement,
+  - Testé la connexion Sequelize,
+  - Démarré l’écoute sur un port.
+
+### `.env`
+Contient des données sensibles :
+- Port du serveur,
+- Identifiants de base de données,
+- Clé secrète JWT, etc.
+
+### `config/`
+Contient la configuration de la BDD (Sequelize).
+- `db.js` : initialise la connexion avec MySQL.
+
+### `models/`
+Décrit toutes les tables via Sequelize.
+- Chaque modèle correspond à une table (inclut les clés étrangères et les associations).
+- Les tables de liaison sont aussi modélisées ici.
+
+### `controllers/`
+Contient la logique métier pour chaque modèle :
+- Ex : `getAllUtilisateurs`, `updateAbonnement`, `deleteFacture`, etc.
+
+### `routes/`
+Lie les endpoints REST aux fonctions des `controllers`.
+- Ex : `GET /api/abonnements` → `getAllAbonnements()`.
+
+### `validators/`
+Valide les requêtes utilisateur avec `express-validator`.
+- Chaque entité possède son propre fichier de validation.
+
+### `middleware/`
+Contient les middlewares globaux :
+- `auth.js` → Vérifie le token JWT.
+- `errorHandler.js` → Gère les erreurs applicatives.
+- `validate.js` → Applique la validation des données.
+
+### `documentation/`
+Contient la documentation Swagger (fichier `swagger.json`).
+
+### `http/`
+Permet de regrouper :
+- Des statuts HTTP personnalisés ou helpers.
+
+---
+
+## 3. Fonctionnement global
+
+1. L’utilisateur envoie une requête vers une route de l’API.
+2. Elle passe par les middlewares (authentification, validation, parsing).
+3. La route appelle une fonction du contrôleur.
+4. Le contrôleur utilise Sequelize pour lire/modifier la base.
+5. Une réponse est retournée (données ou message d’erreur).
+
+---
+
+## 4. Technologies & bibliothèques utilisées
+
+| Bibliothèque        | Utilité                                       |
+|---------------------|-----------------------------------------------|
+| express             | Créer le serveur et les routes                |
+| sequelize           | ORM pour interagir avec MySQL                 |
+| mysql2              | Driver MySQL pour Sequelize                   |
+| body-parser         | Parsing JSON (déjà inclus dans Express v4.16+)|
+| dotenv              | Gérer les variables d’environnement           |
+| express-validator   | Valider les entrées utilisateur               |
+| jsonwebtoken        | Authentification avec JWT                     |
+| cors                | Autoriser les requêtes cross-domain           |
+| helmet              | Sécuriser les headers HTTP                    |
+| morgan *(optionnel)*| Logger les requêtes HTTP                      |
+| swagger-ui-express *(optionnel)* | Affichage Swagger en frontend     |
+
+---
+
+## 5. Installation
+
+### Prérequis :
+- Node.js ≥ 16
+- Serveur MySQL
+- Créer la base avec le fichier SQL `init.sql`
+
+### Étapes :
+
+```bash
+git clone <repo>
+cd API/
+npm install

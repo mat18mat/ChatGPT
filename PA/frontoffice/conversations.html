@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Messagerie - EcoDeli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .badge-message {
+      display: inline-block;
+      padding: 0.25em 0.75em;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 0.5em;
+    }
+    .badge-nonlu { background: #fee2e2; color: #dc2626; }
+    .badge-lu { background: #dcfce7; color: #16a34a; }
+    @media (max-width: 640px) {
+      th, td { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Feedback global -->
+  <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+  <div class="max-w-6xl mx-auto py-8 px-2 md:px-8">
+    <div class="bg-white rounded-xl shadow-lg flex flex-col md:flex-row overflow-hidden min-h-[600px]">
+      <!-- Liste des conversations -->
+      <aside class="w-full md:w-1/3 border-r border-gray-100 bg-gray-50 p-4 overflow-y-auto">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-900">Conversations</h2>
+          <button id="refresh-conv" class="text-primary hover:text-secondary"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <div id="conversations-list" class="space-y-2">
+          <!-- Skeleton de chargement -->
+          <div id="conversations-skeleton">
+            <div class="bg-white p-4 rounded-xl animate-pulse h-16 mb-2"></div>
+            <div class="bg-white p-4 rounded-xl animate-pulse h-16 mb-2"></div>
+            <div class="bg-white p-4 rounded-xl animate-pulse h-16"></div>
+          </div>
+          <!-- Conversations injectées ici -->
+        </div>
+      </aside>
+      <!-- Fil de messages -->
+      <main class="flex-1 flex flex-col">
+        <div class="border-b border-gray-100 p-4 flex items-center space-x-4 bg-white">
+          <div id="conv-user-avatar" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl"></div>
+          <div>
+            <div id="conv-user-name" class="font-semibold text-gray-900">Sélectionnez une conversation</div>
+            <div id="conv-user-role" class="text-xs text-gray-500"></div>
+          </div>
+        </div>
+        <div id="messages-list" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          <!-- Skeleton de chargement -->
+          <div id="messages-skeleton">
+            <div class="flex justify-start mb-2"><div class="bg-gray-200 h-10 w-2/3 rounded-2xl animate-pulse"></div></div>
+            <div class="flex justify-end mb-2"><div class="bg-primary/20 h-10 w-1/2 rounded-2xl animate-pulse"></div></div>
+            <div class="flex justify-start"><div class="bg-gray-200 h-10 w-1/3 rounded-2xl animate-pulse"></div></div>
+          </div>
+          <!-- Messages injectés ici -->
+        </div>
+        <form id="send-message-form" class="flex items-center border-t border-gray-100 p-4 bg-white" autocomplete="off">
+          <input type="text" id="message-input" class="flex-1 border rounded-xl px-4 py-2 mr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="Écrire un message..." autocomplete="off" required>
+          <button type="submit" class="bg-primary text-white px-6 py-2 rounded-xl hover:bg-secondary transition-colors"><i class="fas fa-paper-plane"></i></button>
+        </form>
+      </main>
+    </div>
+  </div>
+  <script src="js/conversations.js"></script>
+</body>
+</html> 

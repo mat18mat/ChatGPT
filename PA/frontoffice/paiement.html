@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement - EcoDeli</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-sans">
+  <!-- Feedback global -->
+  <div id="feedback-message" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg"></div>
+  <div class="flex min-h-screen">
+    <main class="flex-1 flex flex-col items-center justify-center p-4">
+      <div class="bg-white/90 rounded-2xl shadow-xl max-w-lg w-full p-8 border border-white/20 mt-12">
+        <div class="flex items-center justify-center mb-6">
+          <i class="fab fa-cc-stripe text-4xl text-primary mr-2"></i>
+          <h1 class="text-3xl font-bold gradient-text">Paiement sécurisé</h1>
+        </div>
+        <div id="order-summary" class="mb-6">
+          <!-- Résumé du panier injecté JS -->
+        </div>
+        <div id="stripe-form-container">
+          <button id="pay-btn" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-xl font-medium shadow hover:bg-secondary transition mb-2 flex items-center justify-center text-lg">
+            <i class="fab fa-cc-stripe mr-2"></i>Payer maintenant
+          </button>
+        </div>
+        <div id="payment-status" class="mt-6 text-center text-lg font-semibold"></div>
+        <div class="mt-8 text-center">
+          <a href="index.html" class="inline-block bg-primary text-white px-6 py-2 rounded-xl font-medium shadow hover:bg-secondary transition">Retour à l'accueil</a>
+        </div>
+        <div class="flex justify-center mt-8">
+          <button id="stripe-pay-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-700 transition">Payer avec Stripe</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Affichage du résumé du panier
+    function renderOrderSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const container = document.getElementById('order-summary');
+      if (!cart.length) {
+        container.innerHTML = '<p class="text-center text-gray-500">Votre panier est vide.</p>';
+        document.getElementById('pay-btn').disabled = true;
+        return;
+      }
+      let html = '<h2 class="text-xl font-semibold mb-4">Résumé de la commande</h2>';
+      html += '<ul class="divide-y divide-gray-200 mb-4">';
+      cart.forEach(item => {
+        html += `<li class='py-2 flex justify-between items-center'><span>${item.title || item.name}</span><span class='font-bold'>${item.price}€</span></li>`;
+      });
+      html += '</ul>';
+      const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      html += `<div class='flex justify-between items-center font-semibold text-lg'><span>Total</span><span>${total.toFixed(2)} €</span></div>`;
+      container.innerHTML = html;
+    }
+    renderOrderSummary();
+
+    // Stripe paiement réel (Checkout Session)
+    document.getElementById('pay-btn').addEventListener('click', async function() {
+      const btn = this;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Redirection vers Stripe...';
+      showFeedback('Redirection vers Stripe...', 'info');
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (!cart.length) throw new Error('Panier vide');
+        // Appel API backend pour créer une session Stripe
+        const response = await fetch('http://localhost:3000/api/paiement/stripe-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token') ? `Bearer ${localStorage.getItem('token')}` : ''
+          },
+          body: JSON.stringify({ items: cart })
+        });
+        if (!response.ok) throw new Error('Erreur lors de la création de la session Stripe');
+        const data = await response.json();
+        if (!data.url) throw new Error('URL Stripe non reçue');
+        // Rediriger vers Stripe Checkout
+        window.location.href = data.url;
+      } catch (error) {
+        showFeedback(error.message || 'Erreur lors du paiement', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fab fa-cc-stripe mr-2"></i>Payer maintenant';
+      }
+    });
+
+    // Feedback global harmonisé
+    function showFeedback(message, type = 'info') {
+      const feedback = document.getElementById('feedback-message');
+      feedback.textContent = message;
+      feedback.className = `fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-xl text-center font-medium shadow-lg ${
+        type === 'success' ? 'bg-green-500 text-white' : type === 'error' ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'
+      }`;
+      feedback.style.display = 'block';
+      feedback.style.opacity = '1';
+      setTimeout(() => {
+        feedback.style.opacity = '0';
+        setTimeout(() => {
+          feedback.style.display = 'none';
+        }, 300);
+      }, 2200);
+    }
+  </script>
+</body>
+</html> 

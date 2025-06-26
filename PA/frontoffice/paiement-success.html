@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement réussi - EcoDeli</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 min-h-screen font-sans flex items-center justify-center">
+  <div class="bg-white/90 rounded-2xl shadow-xl max-w-md w-full p-8 border border-white/20 flex flex-col items-center">
+    <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-primary rounded-full flex items-center justify-center mb-6">
+      <i class="fas fa-check-circle text-white text-5xl"></i>
+    </div>
+    <h1 class="text-3xl font-bold gradient-text mb-2">Paiement réussi !</h1>
+    <p class="text-lg text-gray-700 mb-4 text-center">Merci pour votre commande. Un reçu vous a été envoyé par email.<br>Vous pouvez retrouver vos achats dans votre historique.</p>
+    <a href="dashboard.html" class="w-full bg-primary text-white py-3 rounded-xl font-medium shadow hover:bg-secondary transition mb-2 text-center">Aller au dashboard</a>
+    <a href="index.html" class="w-full border border-gray-300 text-gray-700 py-2 rounded-xl font-medium hover:bg-gray-50 transition text-center">Retour à l'accueil</a>
+  </div>
+  <script>
+    // Nettoyer le panier local après paiement
+    localStorage.removeItem('cart');
+  </script>
+</body>
+</html> 
