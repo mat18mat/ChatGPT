@@ -387,7 +387,7 @@ async function sendNotification(recipientId, type, title, message, data = {}) {
 window.createNotification = sendNotification
 
 // Mock functions pour éviter les erreurs
-const API_BASE_URL = ""
+const API_BASE_URL = "http://localhost:4000"
 const authToken = ""
 
 function apiCall(endpoint, options = {}) {

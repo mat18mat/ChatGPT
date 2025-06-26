@@ -1,5 +1,5 @@
 // Configuration API
-const API_BASE_URL = "http://api:4000/api" // À adapter selon votre backend
+const API_BASE_URL = "http://localhost:4000/api" // À adapter selon votre backend
 
 // Gestion de l'authentification
 let currentUser = null
