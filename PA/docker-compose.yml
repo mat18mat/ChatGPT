@@ -36,7 +36,7 @@ services:
     volumes:
       - ./frontoffice:/usr/share/nginx/html
     ports:
-      - "3000:80"
+      - "8082:80"
     restart: always
 
   backoffice:

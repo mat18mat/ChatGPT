@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   try {
     // Charger les annonces
-    const annonces = await ApiService.get('/annonces');
+    const annonces = await ApiService.get('/api/annonces');
     displayAnnouncements(annonces);
 
     // Initialiser les filtres
@@ -100,7 +100,7 @@ async function loadAndDisplayAnnouncements() {
   }
   showNotification('Chargement des annonces...', 'info');
   try {
-    const annonces = await ApiService.get('/annonces');
+    const annonces = await ApiService.get('/api/annonces');
     displayAnnouncements(annonces);
     showNotification('Annonces chargées', 'success');
   } catch (error) {
@@ -301,7 +301,7 @@ function initializeFilters() {
     };
 
     try {
-      const annonces = await ApiService.get('/annonces?' + new URLSearchParams(filters));
+      const annonces = await ApiService.get('/api/annonces?' + new URLSearchParams(filters));
       displayAnnouncements(annonces);
     } catch (error) {
       console.error('Erreur lors du filtrage des annonces:', error);
@@ -401,12 +401,12 @@ document.getElementById('announcement-form').addEventListener('submit', async fu
             await ApiService.put(`/annonces/${editingAnnouncementId}`, data);
             showNotification('Annonce modifiée avec succès', 'success');
         } else {
-            await ApiService.post('/annonces', data);
+            await ApiService.post('/api/annonces', data);
             showNotification('Annonce créée avec succès', 'success');
         }
         closeAnnouncementModal();
         // Rafraîchir la liste
-        const annonces = await ApiService.get('/annonces');
+        const annonces = await ApiService.get('/api/annonces');
         displayAnnouncements(annonces);
     } catch (error) {
         showNotification('Erreur lors de l\'enregistrement de l\'annonce', 'error');
@@ -437,7 +437,7 @@ window.deleteAnnouncement = async function(annonceId) {
         await ApiService.delete(`/annonces/${annonceId}`);
         showNotification('Annonce supprimée avec succès', 'success');
         // Rafraîchir la liste
-        const annonces = await ApiService.get('/annonces');
+        const annonces = await ApiService.get('/api/annonces');
         displayAnnouncements(annonces);
     } catch (error) {
         showNotification('Erreur lors de la suppression de l\'annonce', 'error');
@@ -584,7 +584,7 @@ window.cancelAnnouncement = async function(annonceId) {
         await ApiService.post(`/annonces/${annonceId}/cancel`);
         showNotification('Annonce annulée avec succès', 'success');
         // Rafraîchir la liste
-        const annonces = await ApiService.get('/annonces');
+        const annonces = await ApiService.get('/api/annonces');
         displayAnnouncements(annonces);
     } catch (error) {
         showNotification('Erreur lors de l\'annulation de l\'annonce', 'error');

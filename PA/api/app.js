@@ -53,7 +53,8 @@ app.use(morgan('combined'));
 app.use(helmet());
 app.use(cors({
   origin: [FRONT_OFFICE_URL, BACK_OFFICE_URL],
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Authorization', 'Content-Type']
 }));
 
 app.use(compression());
