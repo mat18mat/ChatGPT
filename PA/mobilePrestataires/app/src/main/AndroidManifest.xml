@@ -4,8 +4,7 @@
     <application
         android:allowBackup="true"
         android:label="EcoDeli"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+        android:supportsRtl="true">
         <activity
             android:name="com.example.ecodeli.ui.MainActivity"
             android:exported="true">
