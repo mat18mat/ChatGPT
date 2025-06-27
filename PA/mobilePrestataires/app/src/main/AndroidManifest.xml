@@ -6,7 +6,9 @@
         android:label="EcoDeli"
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
-        <activity android:name="com.example.ecodeli.ui.MainActivity">
+        <activity
+            android:name="com.example.ecodeli.ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
