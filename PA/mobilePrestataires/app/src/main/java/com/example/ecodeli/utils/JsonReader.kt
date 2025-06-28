@@ -2,6 +2,7 @@ package com.example.ecodeli.utils
 
 import android.content.Context
 import com.example.ecodeli.model.Prestation
+import com.example.ecodeli.model.Delivery
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -10,6 +11,13 @@ object JsonReader {
         val input = context.assets.open("data.json")
         val json = input.bufferedReader().use { it.readText() }
         val type = object : TypeToken<List<Prestation>>() {}.type
+        return Gson().fromJson(json, type)
+    }
+
+    fun loadDeliveries(context: Context): List<Delivery> {
+        val input = context.assets.open("deliveries.json")
+        val json = input.bufferedReader().use { it.readText() }
+        val type = object : TypeToken<List<Delivery>>() {}.type
         return Gson().fromJson(json, type)
     }
 }
