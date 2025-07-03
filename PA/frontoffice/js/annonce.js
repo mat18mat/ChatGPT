@@ -129,10 +129,7 @@ function displayAnnouncements(annonces) {
     if (["pending", "accepted", "in_progress"].includes(annonce.statut) && currentUser && annonce.utilisateurId === currentUser.id) {
       cancelBtn = `<button onclick="cancelAnnouncement(${annonce.id})" class="mt-2 w-full bg-danger text-white py-2 px-4 rounded hover:bg-red-600 transition">Annuler</button>`;
     }
-    let invoiceBtn = '';
-    if (["completed", "paid"].includes(annonce.statut) && currentUser && annonce.utilisateurId === currentUser.id) {
-      invoiceBtn = `<button onclick="downloadInvoice(${annonce.id})" class="mt-2 w-full bg-success text-white py-2 px-4 rounded hover:bg-green-600 transition">Télécharger la facture</button>`;
-    }
+      let invoiceBtn = '';
     return `
     <div class="bg-white rounded-lg shadow-md overflow-hidden relative">
       <div class="absolute top-2 right-2 z-10 flex space-x-2">
@@ -591,26 +588,3 @@ window.cancelAnnouncement = async function(annonceId) {
     }
 };
 
-window.downloadInvoice = async function(annonceId) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/api/factures/annonce/${annonceId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': localStorage.getItem('token') ? `Bearer ${localStorage.getItem('token')}` : ''
-            }
-        });
-        if (!response.ok) throw new Error('Erreur lors du téléchargement de la facture');
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `facture-annonce-${annonceId}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
-        showNotification('Facture téléchargée', 'success');
-    } catch (error) {
-        showNotification(error.message || 'Erreur lors du téléchargement de la facture', 'error');
-    }
-};

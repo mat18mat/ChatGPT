@@ -189,36 +189,6 @@ async function loadUsersForLogs() {
     }
 }
 
-// Exporter les logs
-async function exportLogs() {
-    try {
-        const dateFrom = document.getElementById('date-from')?.value || '';
-        const dateTo = document.getElementById('date-to')?.value || '';
-        const userFilter = document.getElementById('filter-user')?.value || '';
-        const searchAction = document.getElementById('search-action')?.value || '';
-
-        const params = new URLSearchParams({
-            dateFrom: dateFrom,
-            dateTo: dateTo,
-            userId: userFilter,
-            action: searchAction,
-            export: 'csv'
-        });
-
-        // Créer un lien de téléchargement
-        const link = document.createElement('a');
-        link.href = `${API_BASE_URL}/logs?${params}`;
-        link.download = `logs_${new Date().toISOString().split('T')[0]}.csv`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        showNotification('Export des logs lancé', 'success');
-    } catch (error) {
-        console.error('Erreur lors de l\'export:', error);
-        showNotification('Erreur lors de l\'export', 'error');
-    }
-}
 
 // Fonctions utilitaires pour les logs
 function getActionClass(action) {

@@ -116,12 +116,7 @@ function displayPaiements(paiements) {
                                     ${paiement.statut}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <button onclick="downloadFacture(${paiement.id})" 
-                                        class="text-blue-600 hover:text-blue-800">
-                                    Télécharger la facture
-                                </button>
-                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
                         </tr>
                     `).join('')}
                 </tbody>
@@ -150,23 +145,6 @@ async function cancelAbonnement(abonnementId) {
     }
 }
 
-// Téléchargement de facture
-async function downloadFacture(paiementId) {
-    try {
-        const response = await ApiService.get(`/paiements/${paiementId}/facture`);
-        
-        // Créer un lien de téléchargement
-        const link = document.createElement('a');
-        link.href = response.url;
-        link.download = `facture_${paiementId}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } catch (error) {
-        console.error('Erreur lors du téléchargement:', error);
-        showNotification('Erreur lors du téléchargement de la facture', 'error');
-    }
-}
 
 // Affichage des détails d'un abonnement
 async function showAbonnementDetails(abonnementId) {
