@@ -9,7 +9,7 @@ from data_generation import generator
 from analytics import stats
 from visualization import charts
 from pdf import report
-from gui.interface import main as gui_main
+from gui.kivy_app import main as gui_main
 
 
 def cli_run_stats() -> list[Path]:
@@ -56,7 +56,8 @@ def main() -> None:
         print("Statistiques générées")
     elif args.command == "generate-report":
         images = cli_run_stats()
-        pdf_path = report.create_report(images)
+        summary = report.compute_summary()
+        pdf_path = report.create_report(images, summary)
         print(f"Rapport créé: {pdf_path}")
     else:
         gui_main()
