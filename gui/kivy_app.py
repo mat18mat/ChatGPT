@@ -10,7 +10,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 
 from data_generation import generator
-from main import cli_run_stats
+from ecodeli_core import generate_charts
 from pdf import report
 
 PDF_PATH = Path('pdf/report.pdf')
@@ -41,11 +41,11 @@ class EcoDeliWidget(BoxLayout):
         self.status.text = 'Données générées'
 
     def generate_charts(self, *args):
-        cli_run_stats()
+        generate_charts()
         self.status.text = 'Graphiques générés'
 
     def generate_pdf(self, *args):
-        images = cli_run_stats()
+        images = generate_charts()
         summary = report.compute_summary()
         report.create_report(images, summary)
         self.status.text = 'PDF généré'
