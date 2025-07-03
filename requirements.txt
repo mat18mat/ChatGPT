@@ -1,7 +1,0 @@
-faker
-matplotlib
-seaborn
-scikit-learn
-reportlab
-tk
-pandas
