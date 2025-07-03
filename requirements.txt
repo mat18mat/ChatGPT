@@ -3,5 +3,6 @@ matplotlib
 seaborn
 scikit-learn
 reportlab
+kivy
 tk
 pandas
